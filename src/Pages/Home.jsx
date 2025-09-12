@@ -31,12 +31,12 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-6 space-y-4">
+    <div className="flex flex-col items-center mt-6 space-y-4 ">
       <h2 className="text-lg font-semibold">Upload Photo</h2>
 
       {/* Upload Box */}
       <div
-        className="w-72 h-64 border-2 border-dashed border-gray-400 flex flex-col items-center justify-center rounded-md cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
+        className="w-72 h-64 border-2 border-dashed border-gray-400 flex flex-col items-center justify-center rounded-md cursor-pointer bg-gray-100 hover:bg-gray-200 transition lg:w-90"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onClick={() => document.getElementById("fileInput").click()}
@@ -80,7 +80,7 @@ const Home = () => {
       {/* Submit Button */}
       <button
         onClick={handleSubmit}
-        className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition"
+        className="px-8 py-2 bg-gray-800 text-white rounded-2xl hover:bg-gray-900 transition hover:cursor-pointer"
       >
         Submit
       </button>
