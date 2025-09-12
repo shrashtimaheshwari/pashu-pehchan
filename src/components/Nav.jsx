@@ -23,8 +23,8 @@ const Nav = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-around bg-no-repeat bg-cover bg-center h-44 " style={{ backgroundImage: `url(${banner})` }}>
-        <img src={logo} alt="" className="w-17"/>
+      <div className="flex items-center justify-around bg-no-repeat bg-cover bg-center h-40" style={{ backgroundImage: `url(${banner})` }}>
+        <img src={logo} alt="" className="w-17 lg:w-25"/>
         <h2 className="text-2xl text-white">Pashu Pehchan</h2>
       </div>
     </div>
