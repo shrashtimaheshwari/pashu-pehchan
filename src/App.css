@@ -1,5 +1,0 @@
-@import "tailwindcss";
-
-.bg-faded {
-  filter: brightness(120%) contrast(85%) saturate(90%);
-}
