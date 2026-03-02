@@ -8,6 +8,7 @@ import api from './api/axios';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Analytics from './pages/Analytics';
@@ -40,6 +41,7 @@ const AppContent = () => {
         <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
+        <Route path="/forgot-password" element={!user ? <ForgotPassword /> : <Navigate to="/dashboard" />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
