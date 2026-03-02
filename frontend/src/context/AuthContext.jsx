@@ -7,7 +7,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(localStorage.getItem('token') || sessionStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
 
     // Fetch profile if token exists
@@ -36,10 +36,16 @@ export const AuthProvider = ({ children }) => {
         return () => window.removeEventListener('auth:unauthorized', handleUnauthorized);
     }, []);
 
-    const login = async (email, password) => {
+    const login = async (email, password, rememberMe = true) => {
         const res = await api.post('/auth/login', { email, password });
         const { token: newToken, user: userData } = res.data;
-        localStorage.setItem('token', newToken);
+        if (rememberMe) {
+            localStorage.setItem('token', newToken);
+            sessionStorage.removeItem('token');
+        } else {
+            sessionStorage.setItem('token', newToken);
+            localStorage.removeItem('token');
+        }
         setToken(newToken);
         setUser(userData);
     };
@@ -54,6 +60,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         setToken(null);
         setUser(null);
     };

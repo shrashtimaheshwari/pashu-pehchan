@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Activity, Eye, EyeOff } from 'lucide-react';
+import { Activity, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 
@@ -65,6 +65,9 @@ const Register = () => {
             {/* Right split - Form */}
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
                 <div className="max-w-md w-full">
+                    <Link to="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-secondary mb-6 transition-colors">
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
+                    </Link>
                     <h2 className="text-3xl font-bold text-slate-800 mb-2">Create an Account</h2>
                     <p className="text-slate-500 mb-8">Sign up to access AI identification tools.</p>
 

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, Eye, EyeOff } from 'lucide-react';
+import { ShieldCheck, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +32,7 @@ const Login = () => {
         }
         setIsSubmitting(true);
         try {
-            await login(email, password);
+            await login(email, password, rememberMe);
             addToast('Successfully logged in!', 'success');
             navigate('/dashboard');
         } catch (err) {
@@ -63,6 +64,9 @@ const Login = () => {
             {/* Right split - Form */}
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
                 <div className="max-w-md w-full">
+                    <Link to="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-primary mb-6 transition-colors">
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
+                    </Link>
                     <h2 className="text-3xl font-bold text-slate-800 mb-2">Login to Your Account</h2>
                     <p className="text-slate-500 mb-8">Enter your credentials to access the platform.</p>
 
@@ -104,6 +108,19 @@ const Login = () => {
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
                             </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center text-sm text-slate-600 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
+                                    className="mr-2 rounded border-slate-300 text-primary focus:ring-primary/50"
+                                />
+                                Remember me
+                            </label>
+                            <a href="#" className="text-sm text-primary hover:underline">Forgot password?</a>
                         </div>
 
                         <button

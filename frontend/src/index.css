@@ -6,4 +6,10 @@
   body {
     @apply bg-white text-slate-900 font-sans;
   }
+
+  /* Hides default browser password eye icon (e.g. Microsoft Edge) to prevent showing 2 eyes */
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
 }

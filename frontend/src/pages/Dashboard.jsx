@@ -32,9 +32,10 @@ const Dashboard = () => {
     const processFile = (selectedFile) => {
         if (!selectedFile) return;
 
-        // Validate type
-        if (!selectedFile.type.startsWith('image/')) {
-            addToast('Please upload a valid image file.', 'error');
+        // Validate type explicitly (only jpeg/png)
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!allowedTypes.includes(selectedFile.type)) {
+            addToast('Only JPEG and PNG file formats are officially supported.', 'error');
             return;
         }
 
@@ -129,7 +130,7 @@ const Dashboard = () => {
                                 type="file"
                                 ref={fileInputRef}
                                 onChange={handleFileChange}
-                                accept="image/*"
+                                accept="image/jpeg, image/png"
                                 className="hidden"
                             />
                         </div>
