@@ -25,7 +25,7 @@ const PredictionResult = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8">
+        <div className="min-h-screen bg-slate-50 p-4 md:p-8">
             <div className="max-w-6xl mx-auto">
                 <button
                     onClick={() => navigate('/dashboard')}
@@ -34,7 +34,7 @@ const PredictionResult = () => {
                     <ArrowLeft className="w-5 h-5" /> Back to Dashboard
                 </button>
 
-                <h1 className="text-3xl font-bold text-slate-800 mb-8">Scan Results</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6 md:mb-8">Scan Results</h1>
 
                 {result.blurWarning && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl flex items-center gap-3 mb-6 shadow-sm">
@@ -45,7 +45,7 @@ const PredictionResult = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Left - Uploaded Image */}
-                    <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center h-[500px]">
+                    <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center h-64 md:h-[500px]">
                         <img
                             src={preview}
                             alt="Uploaded Cattle"
@@ -60,7 +60,7 @@ const PredictionResult = () => {
                             <div className="flex justify-between items-start mb-6">
                                 <div>
                                     <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Identified Breed</p>
-                                    <h2 className="text-4xl font-black text-primary-dark">{result.breed}</h2>
+                                    <h2 className="text-2xl md:text-4xl font-black text-primary-dark">{result.breed}</h2>
                                 </div>
                                 <div className="bg-primary/10 p-3 rounded-full">
                                     <CheckCircle className="w-8 h-8 text-primary" />

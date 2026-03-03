@@ -99,10 +99,10 @@ const Dashboard = () => {
         <div className="flex bg-slate-50 min-h-screen">
             <Sidebar />
 
-            <main className="flex-1 p-8 overflow-y-auto">
-                <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-800">New Cattle Scan</h1>
-                    <p className="text-slate-500 text-lg">Upload an image of a cattle or buffalo to classify its breed.</p>
+            <main className="flex-1 p-4 pt-16 md:p-8 overflow-y-auto">
+                <header className="mb-6 md:mb-8">
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-800">New Cattle Scan</h1>
+                    <p className="text-slate-500 md:text-lg">Upload an image of a cattle or buffalo to classify its breed.</p>
                 </header>
 
                 <div className="max-w-3xl bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
@@ -149,13 +149,13 @@ const Dashboard = () => {
                                 )}
                             </div>
 
-                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100 mb-8">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-white rounded-lg shadow-sm">
+                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100 mb-8 overflow-hidden">
+                                <div className="flex items-center gap-3 min-w-0">
+                                    <div className="p-2 bg-white rounded-lg shadow-sm shrink-0">
                                         <ImageIcon className="w-6 h-6 text-primary" />
                                     </div>
-                                    <div>
-                                        <p className="font-semibold text-slate-700 truncate max-w-xs">{file.name}</p>
+                                    <div className="min-w-0">
+                                        <p className="font-semibold text-slate-700 truncate">{file.name}</p>
                                         <p className="text-sm text-slate-500">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
                                     </div>
                                 </div>

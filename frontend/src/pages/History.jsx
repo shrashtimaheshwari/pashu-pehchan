@@ -21,7 +21,6 @@ const History = () => {
         setLoading(true);
         try {
             const resp = await api.get('/predictions');
-            // Assume array of { id, img_url, breed, confidence, date }
             setScans(resp.data);
         } catch (err) {
             addToast('Failed to load history data.', 'error');
@@ -60,6 +59,17 @@ const History = () => {
         setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
     };
 
+    const getConfBadge = (confidence) => {
+        const color = confidence > 90 ? 'bg-green-100 text-green-700' :
+            confidence > 70 ? 'bg-yellow-100 text-yellow-700' :
+                'bg-red-100 text-red-700';
+        return (
+            <span className={`px-3 py-1 rounded-full text-xs font-bold ${color}`}>
+                {confidence.toFixed(1)}%
+            </span>
+        );
+    };
+
     const filteredScans = scans
         .filter(scan => scan.breed.toLowerCase().includes(searchQuery.toLowerCase()))
         .sort((a, b) => {
@@ -71,47 +81,95 @@ const History = () => {
     return (
         <div className="flex bg-slate-50 min-h-screen">
             <Sidebar />
-            <main className="flex-1 p-8 overflow-y-auto w-full">
-                <header className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <main className="flex-1 p-4 pt-16 md:p-8 overflow-y-auto w-full">
+                <header className="mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-800">Scan History</h1>
-                        <p className="text-slate-500">View and manage past identification records.</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">Scan History</h1>
+                        <p className="text-slate-500 text-sm md:text-base">View and manage past identification records.</p>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <div className="relative">
+                    <div className="flex items-center gap-3 w-full sm:w-auto">
+                        <div className="relative flex-1 sm:flex-initial">
                             <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input
                                 type="text"
                                 placeholder="Search by breed..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-10 pr-4 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                                className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
                             />
                         </div>
                         <button
                             onClick={toggleSort}
-                            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition-colors font-medium text-slate-700"
+                            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition-colors font-medium text-slate-700 shrink-0"
                         >
                             <ArrowUpDown className="w-4 h-4" /> Date
                         </button>
                     </div>
                 </header>
 
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    {loading ? (
-                        <div className="p-16 flex flex-col items-center justify-center text-slate-400">
-                            <Loader2 className="w-8 h-8 animate-spin mb-4 text-primary" />
-                            <p>Loading records...</p>
+                {loading ? (
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-16 flex flex-col items-center justify-center text-slate-400">
+                        <Loader2 className="w-8 h-8 animate-spin mb-4 text-primary" />
+                        <p>Loading records...</p>
+                    </div>
+                ) : filteredScans.length === 0 ? (
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-16 flex flex-col items-center justify-center text-slate-500">
+                        <Database className="w-12 h-12 mb-4 text-slate-300" />
+                        <h3 className="text-xl font-bold text-slate-700">No predictions yet</h3>
+                        <p>Your previous scan history will appear here.</p>
+                    </div>
+                ) : (
+                    <>
+                        {/* ===== MOBILE: Card Layout ===== */}
+                        <div className="md:hidden flex flex-col gap-4">
+                            {filteredScans.map((scan) => (
+                                <div key={scan.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                                    {/* Image banner */}
+                                    <div className="h-40 bg-slate-100">
+                                        <img
+                                            src={scan.img_url}
+                                            alt={scan.breed}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    {/* 2×2 Info Grid */}
+                                    <div className="p-4 grid grid-cols-2 gap-3">
+                                        <div>
+                                            <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">Breed</p>
+                                            <p className="font-bold text-slate-800 text-lg">{scan.breed}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">Confidence</p>
+                                            {getConfBadge(scan.confidence)}
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">Date</p>
+                                            <p className="text-sm font-medium text-slate-600">{new Date(scan.date).toLocaleDateString()}</p>
+                                        </div>
+                                        <div className="flex items-end justify-end gap-2">
+                                            <button
+                                                onClick={() => handleDownload(scan.id)}
+                                                className="p-2.5 text-primary bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
+                                                title="Download PDF"
+                                            >
+                                                <Download className="w-5 h-5" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(scan.id)}
+                                                className="p-2.5 text-red-500 bg-red-50 hover:bg-red-100 rounded-xl transition-colors"
+                                                title="Delete"
+                                            >
+                                                <Trash2 className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ) : filteredScans.length === 0 ? (
-                        <div className="p-16 flex flex-col items-center justify-center text-slate-500">
-                            <Database className="w-12 h-12 mb-4 text-slate-300" />
-                            <h3 className="text-xl font-bold text-slate-700">No predictions yet</h3>
-                            <p>Your previous scan history will appear here.</p>
-                        </div>
-                    ) : (
-                        <div className="overflow-x-auto">
+
+                        {/* ===== DESKTOP: Table Layout ===== */}
+                        <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                             <table className="w-full text-left border-collapse">
                                 <thead>
                                     <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm uppercase tracking-wider">
@@ -133,14 +191,7 @@ const History = () => {
                                                 />
                                             </td>
                                             <td className="p-4 font-bold text-slate-800">{scan.breed}</td>
-                                            <td className="p-4">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${scan.confidence > 90 ? 'bg-green-100 text-green-700' :
-                                                        scan.confidence > 70 ? 'bg-yellow-100 text-yellow-700' :
-                                                            'bg-red-100 text-red-700'
-                                                    }`}>
-                                                    {scan.confidence.toFixed(1)}%
-                                                </span>
-                                            </td>
+                                            <td className="p-4">{getConfBadge(scan.confidence)}</td>
                                             <td className="p-4 text-slate-600">
                                                 {new Date(scan.date).toLocaleDateString()}
                                             </td>
@@ -148,14 +199,14 @@ const History = () => {
                                                 <div className="flex items-center justify-end gap-2">
                                                     <button
                                                         onClick={() => handleDownload(scan.id)}
-                                                        className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors tooltip-btn"
+                                                        className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
                                                         title="Download PDF Report"
                                                     >
                                                         <Download className="w-5 h-5" />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(scan.id)}
-                                                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors tooltip-btn"
+                                                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                                                         title="Delete Record"
                                                     >
                                                         <Trash2 className="w-5 h-5" />
@@ -167,8 +218,8 @@ const History = () => {
                                 </tbody>
                             </table>
                         </div>
-                    )}
-                </div>
+                    </>
+                )}
             </main>
         </div>
     );

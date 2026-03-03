@@ -1,40 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, UploadCloud, History as HistoryIcon, BarChart2, LogOut } from 'lucide-react';
+import { Home, UploadCloud, History as HistoryIcon, BarChart2, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const [open, setOpen] = useState(false);
 
     const isActive = (path) => location.pathname === path;
 
-    return (
-        <div className="w-64 bg-slate-900 text-slate-300 flex flex-col min-h-screen pt-6 shrink-0">
-            <div className="px-6 mb-8 text-white font-bold text-2xl flex items-center gap-2">
-                <Home className="text-primary w-6 h-6" /> Pashu Pehchan
+    const handleNav = (path) => {
+        navigate(path);
+        setOpen(false); // auto-close on mobile
+    };
+
+    const navItems = [
+        { path: '/dashboard', icon: UploadCloud, label: 'New Scan' },
+        { path: '/history', icon: HistoryIcon, label: 'History' },
+        { path: '/analytics', icon: BarChart2, label: 'Analytics' },
+    ];
+
+    const sidebarContent = (
+        <>
+            <div className="px-6 mb-8 text-white font-bold text-2xl flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <Home className="text-primary w-6 h-6" /> Pashu Pehchan
+                </div>
+                {/* Close button - mobile only */}
+                <button
+                    onClick={() => setOpen(false)}
+                    className="md:hidden p-1 text-slate-400 hover:text-white transition-colors"
+                >
+                    <X className="w-6 h-6" />
+                </button>
             </div>
 
             <nav className="flex-1 px-4 space-y-2">
-                <div
-                    onClick={() => navigate('/dashboard')}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive('/dashboard') ? 'bg-primary text-white' : 'hover:bg-slate-800'}`}
-                >
-                    <UploadCloud className="w-5 h-5" /> New Scan
-                </div>
-                <div
-                    onClick={() => navigate('/history')}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive('/history') ? 'bg-primary text-white' : 'hover:bg-slate-800'}`}
-                >
-                    <HistoryIcon className="w-5 h-5" /> History
-                </div>
-                <div
-                    onClick={() => navigate('/analytics')}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive('/analytics') ? 'bg-primary text-white' : 'hover:bg-slate-800'}`}
-                >
-                    <BarChart2 className="w-5 h-5" /> Analytics
-                </div>
+                {navItems.map(({ path, icon: Icon, label }) => (
+                    <div
+                        key={path}
+                        onClick={() => handleNav(path)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-colors ${isActive(path) ? 'bg-primary text-white' : 'hover:bg-slate-800'}`}
+                    >
+                        <Icon className="w-5 h-5" /> {label}
+                    </div>
+                ))}
             </nav>
 
             <div className="p-4 border-t border-slate-800">
@@ -49,7 +61,41 @@ const Sidebar = () => {
                     <LogOut className="w-4 h-4" /> Logout
                 </button>
             </div>
-        </div>
+        </>
+    );
+
+    return (
+        <>
+            {/* Mobile hamburger button */}
+            <button
+                onClick={() => setOpen(true)}
+                className="md:hidden fixed top-4 left-4 z-40 bg-slate-900 text-white p-2 rounded-xl shadow-lg hover:bg-slate-800 transition-colors"
+                aria-label="Open menu"
+            >
+                <Menu className="w-6 h-6" />
+            </button>
+
+            {/* Mobile overlay backdrop */}
+            {open && (
+                <div
+                    className="md:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+                    onClick={() => setOpen(false)}
+                />
+            )}
+
+            {/* Mobile sidebar (slide-in) */}
+            <div
+                className={`md:hidden fixed top-0 left-0 h-full w-64 bg-slate-900 text-slate-300 flex flex-col pt-6 z-50 transform transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full'
+                    }`}
+            >
+                {sidebarContent}
+            </div>
+
+            {/* Desktop sidebar (always visible) */}
+            <div className="hidden md:flex w-64 bg-slate-900 text-slate-300 flex-col min-h-screen pt-6 shrink-0">
+                {sidebarContent}
+            </div>
+        </>
     );
 };
 

@@ -72,7 +72,7 @@ const Analytics = () => {
         return (
             <div className="flex bg-slate-50 min-h-screen">
                 <Sidebar />
-                <main className="flex-1 p-8 flex items-center justify-center">
+                <main className="flex-1 p-4 pt-16 md:p-8 flex items-center justify-center">
                     <Loader2 className="w-12 h-12 text-primary animate-spin" />
                 </main>
             </div>
@@ -82,12 +82,12 @@ const Analytics = () => {
     return (
         <div className="flex bg-slate-50 min-h-screen">
             <Sidebar />
-            <main className="flex-1 p-8 overflow-y-auto">
-                <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-800">
+            <main className="flex-1 p-4 pt-16 md:p-8 overflow-y-auto">
+                <header className="mb-6 md:mb-8">
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
                         Analytics Dashboard
                     </h1>
-                    <p className="text-slate-500">
+                    <p className="text-slate-500 text-sm md:text-base">
                         Platform usage and breed identification metrics.
                     </p>
                 </header>
@@ -140,7 +140,7 @@ const Analytics = () => {
                         <h3 className="text-xl font-bold text-slate-800 mb-6">
                             Breed Distribution (Bar)
                         </h3>
-                        <div className="h-80 w-full">
+                        <div className="h-60 md:h-80 w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={data.chart_data || []}>
                                     <XAxis
@@ -172,7 +172,7 @@ const Analytics = () => {
                         <h3 className="text-xl font-bold text-slate-800 mb-6">
                             Breed Distribution (Pie)
                         </h3>
-                        <div className="h-80 w-full flex items-center justify-center">
+                        <div className="h-60 md:h-80 w-full flex items-center justify-center">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
