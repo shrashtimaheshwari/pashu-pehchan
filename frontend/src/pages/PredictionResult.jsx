@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const PredictionResult = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const result = location.state?.result;
     const preview = location.state?.preview;
@@ -31,15 +33,15 @@ const PredictionResult = () => {
                     onClick={() => navigate('/dashboard')}
                     className="flex items-center gap-2 text-slate-600 hover:text-primary font-medium mb-8 transition-colors"
                 >
-                    <ArrowLeft className="w-5 h-5" /> Back to Dashboard
+                    <ArrowLeft className="w-5 h-5" /> {t('result.backBtn')}
                 </button>
 
-                <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6 md:mb-8">Scan Results</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6 md:mb-8">{t('result.title')}</h1>
 
                 {result.blurWarning && (
                     <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl flex items-center gap-3 mb-6 shadow-sm">
                         <AlertTriangle className="w-6 h-6 text-yellow-500" />
-                        <p className="font-medium">Warning: Low image clarity detected. This may affect the accuracy of the identification.</p>
+                        <p className="font-medium">{t('result.blurWarning')}</p>
                     </div>
                 )}
 
@@ -59,7 +61,7 @@ const PredictionResult = () => {
                         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">Identified Breed</p>
+                                    <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">{t('result.identifiedBreed')}</p>
                                     <h2 className="text-2xl md:text-4xl font-black text-primary-dark">{result.breed}</h2>
                                 </div>
                                 <div className="bg-primary/10 p-3 rounded-full">
@@ -69,7 +71,7 @@ const PredictionResult = () => {
 
                             <div className="mb-4">
                                 <div className="flex justify-between items-end mb-2">
-                                    <span className="font-semibold text-slate-700">Confidence Score</span>
+                                    <span className="font-semibold text-slate-700">{t('result.confidenceScore')}</span>
                                     <span className="text-2xl font-bold">{result.confidence.toFixed(1)}%</span>
                                 </div>
                                 <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
@@ -83,21 +85,21 @@ const PredictionResult = () => {
 
                         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
                             <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-4">
-                                <Info className="w-5 h-5 text-secondary" /> Breed Information
+                                <Info className="w-5 h-5 text-secondary" /> {t('result.infoTitle')}
                             </h3>
 
                             <div className="grid grid-cols-2 gap-y-4 gap-x-6">
                                 <div>
-                                    <p className="text-sm text-slate-500 mb-1">Origin</p>
-                                    <p className="font-semibold">{result.info_card?.origin || 'Unknown'}</p>
+                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.origin')}</p>
+                                    <p className="font-semibold">{result.info_card?.origin || t('result.info.unknown')}</p>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-500 mb-1">Average Milk Yield</p>
-                                    <p className="font-semibold">{result.info_card?.milk_yield || 'N/A'}</p>
+                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.milkYield')}</p>
+                                    <p className="font-semibold">{result.info_card?.milk_yield || t('result.info.na')}</p>
                                 </div>
                                 <div className="col-span-2">
-                                    <p className="text-sm text-slate-500 mb-1">Key Characteristics</p>
-                                    <p className="font-medium text-slate-700">{result.info_card?.characteristics || 'No detail available.'}</p>
+                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.characteristics')}</p>
+                                    <p className="font-medium text-slate-700">{result.info_card?.characteristics || t('result.info.noDetail')}</p>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +108,7 @@ const PredictionResult = () => {
                             onClick={() => navigate('/dashboard')}
                             className="mt-auto w-full py-4 rounded-xl font-bold text-primary bg-primary/10 hover:bg-primary/20 transition-all flex items-center justify-center gap-2"
                         >
-                            <RotateCcw className="w-5 h-5" /> Scan Another Animal
+                            <RotateCcw className="w-5 h-5" /> {t('result.scanAnother')}
                         </button>
 
                     </div>

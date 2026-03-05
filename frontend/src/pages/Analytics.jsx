@@ -14,6 +14,7 @@ import { Target, Activity, Zap, Loader2 } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import { useUI } from '../context/UIContext';
+import { useTranslation } from 'react-i18next';
 
 const Analytics = () => {
     // ✅ SAFE INITIAL STATE (prevents map error)
@@ -26,6 +27,7 @@ const Analytics = () => {
 
     const [loading, setLoading] = useState(true);
     const { addToast } = useUI();
+    const { t } = useTranslation();
 
     const COLORS = ['#2D5A27', '#8B4513', '#D97706', '#047857', '#4B5563'];
 
@@ -49,7 +51,7 @@ const Analytics = () => {
                 chart_data: resp.data.breedDistribution || []
             });
         } catch (err) {
-            addToast('Failed to load analytics data.', 'error');
+            addToast(t('analytics.alerts.loadError'), 'error');
 
             // ✅ Fallback dummy data
             setData({
@@ -79,16 +81,21 @@ const Analytics = () => {
         );
     }
 
+    const translatedChartData = (data.chart_data || []).map(item => ({
+        ...item,
+        name: t(`breeds.${item.name}`, { defaultValue: item.name })
+    }));
+
     return (
         <div className="flex bg-slate-50 min-h-screen">
             <Sidebar />
             <main className="flex-1 p-4 pt-16 md:p-8 overflow-y-auto">
                 <header className="mb-6 md:mb-8">
                     <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
-                        Analytics Dashboard
+                        {t('analytics.title')}
                     </h1>
                     <p className="text-slate-500 text-sm md:text-base">
-                        Platform usage and breed identification metrics.
+                        {t('analytics.subtitle')}
                     </p>
                 </header>
 
@@ -99,7 +106,7 @@ const Analytics = () => {
                             <Zap className="w-8 h-8" />
                         </div>
                         <div>
-                            <p className="text-slate-500 font-medium">Total Scans</p>
+                            <p className="text-slate-500 font-medium">{t('analytics.cards.totalScans')}</p>
                             <h3 className="text-3xl font-bold text-slate-800">
                                 {data.total_scans}
                             </h3>
@@ -112,10 +119,10 @@ const Analytics = () => {
                         </div>
                         <div>
                             <p className="text-slate-500 font-medium">
-                                Most Common Breed
+                                {t('analytics.cards.topBreed')}
                             </p>
                             <h3 className="text-2xl font-bold text-slate-800">
-                                {data.top_breed}
+                                {t(`breeds.${data.top_breed}`, { defaultValue: data.top_breed })}
                             </h3>
                         </div>
                     </div>
@@ -125,7 +132,7 @@ const Analytics = () => {
                             <Activity className="w-8 h-8" />
                         </div>
                         <div>
-                            <p className="text-slate-500 font-medium">Avg. Confidence</p>
+                            <p className="text-slate-500 font-medium">{t('analytics.cards.avgConfidence')}</p>
                             <h3 className="text-3xl font-bold text-slate-800">
                                 {data.avg_confidence}%
                             </h3>
@@ -138,11 +145,11 @@ const Analytics = () => {
                     {/* Bar Chart */}
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <h3 className="text-xl font-bold text-slate-800 mb-6">
-                            Breed Distribution (Bar)
+                            {t('analytics.charts.barTitle')}
                         </h3>
                         <div className="h-60 md:h-80 w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={data.chart_data || []}>
+                                <BarChart data={translatedChartData}>
                                     <XAxis
                                         dataKey="name"
                                         stroke="#64748b"
@@ -170,13 +177,13 @@ const Analytics = () => {
                     {/* Pie Chart */}
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <h3 className="text-xl font-bold text-slate-800 mb-6">
-                            Breed Distribution (Pie)
+                            {t('analytics.charts.pieTitle')}
                         </h3>
                         <div className="h-60 md:h-80 w-full flex items-center justify-center">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
-                                        data={data.chart_data || []}
+                                        data={translatedChartData}
                                         cx="50%"
                                         cy="50%"
                                         innerRadius={70}
@@ -188,7 +195,7 @@ const Analytics = () => {
                                         }
                                         labelLine={false}
                                     >
-                                        {data.chart_data?.map((entry, index) => (
+                                        {translatedChartData.map((entry, index) => (
                                             <Cell
                                                 key={`cell-${index}`}
                                                 fill={COLORS[index % COLORS.length]}

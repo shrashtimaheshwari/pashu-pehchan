@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, UploadCloud, History as HistoryIcon, BarChart2, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Sidebar = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
 
     const isActive = (path) => location.pathname === path;
 
@@ -17,9 +20,9 @@ const Sidebar = () => {
     };
 
     const navItems = [
-        { path: '/dashboard', icon: UploadCloud, label: 'New Scan' },
-        { path: '/history', icon: HistoryIcon, label: 'History' },
-        { path: '/analytics', icon: BarChart2, label: 'Analytics' },
+        { path: '/dashboard', icon: UploadCloud, label: t('nav.newScan') },
+        { path: '/history', icon: HistoryIcon, label: t('nav.history') },
+        { path: '/analytics', icon: BarChart2, label: t('nav.analytics') },
     ];
 
     const sidebarContent = (
@@ -49,16 +52,19 @@ const Sidebar = () => {
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-slate-800">
-                <div className="mb-4 px-2">
-                    <p className="text-sm opacity-60">Logged in as</p>
+            <div className="p-4 border-t border-slate-800 space-y-3">
+                <div className="px-2">
+                    <p className="text-sm opacity-60">{t('nav.loggedInAs')}</p>
                     <p className="font-semibold text-white truncate">{user?.name || 'User'}</p>
                 </div>
+
+                <LanguageSwitcher className="w-full justify-center bg-slate-800 text-slate-300 hover:bg-slate-700" />
+
                 <button
                     onClick={logout}
                     className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 hover:bg-red-500/10 hover:text-red-400 rounded-xl transition-colors"
                 >
-                    <LogOut className="w-4 h-4" /> Logout
+                    <LogOut className="w-4 h-4" /> {t('nav.logout')}
                 </button>
             </div>
         </>

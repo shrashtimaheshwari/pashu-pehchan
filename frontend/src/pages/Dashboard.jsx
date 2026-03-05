@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UploadCloud, Image as ImageIcon, X, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
+import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 
@@ -18,6 +19,7 @@ const Dashboard = () => {
         previewUrl: preview, setPreviewUrl: setPreview
     } = useUI();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -35,13 +37,13 @@ const Dashboard = () => {
         // Validate type explicitly (only jpeg/png)
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
         if (!allowedTypes.includes(selectedFile.type)) {
-            addToast('Only JPEG and PNG file formats are officially supported.', 'error');
+            addToast(t('dashboard.errors.invalidType'), 'error');
             return;
         }
 
         // Validate size (5MB = 5 * 1024 * 1024 bytes)
         if (selectedFile.size > 5 * 1024 * 1024) {
-            addToast('File size exceeds the 5MB limit.', 'error');
+            addToast(t('dashboard.errors.tooLarge'), 'error');
             return;
         }
 
@@ -81,13 +83,13 @@ const Dashboard = () => {
 
             const { blurWarning } = response.data;
             if (blurWarning) {
-                addToast('Low image clarity may affect accuracy.', 'info');
+                addToast(t('result.blurWarning'), 'info');
             }
 
             // Pass result to Prediction Result screen
             navigate('/result', { state: { result: response.data, preview } });
         } catch (error) {
-            addToast(error.response?.data?.message || 'Error communicating with ML API. Please try again.', 'error');
+            addToast(error.response?.data?.message || t('dashboard.errors.apiFailed'), 'error');
         } finally {
             setIsUploading(false);
         }
@@ -101,8 +103,8 @@ const Dashboard = () => {
 
             <main className="flex-1 p-4 pt-16 md:p-8 overflow-y-auto">
                 <header className="mb-6 md:mb-8">
-                    <h1 className="text-2xl md:text-3xl font-bold text-slate-800">New Cattle Scan</h1>
-                    <p className="text-slate-500 md:text-lg">Upload an image of a cattle or buffalo to classify its breed.</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-800">{t('dashboard.title')}</h1>
+                    <p className="text-slate-500 md:text-lg">{t('dashboard.subtitle')}</p>
                 </header>
 
                 <div className="max-w-3xl bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
@@ -119,11 +121,11 @@ const Dashboard = () => {
                             <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-4">
                                 <UploadCloud className="w-8 h-8 text-secondary" />
                             </div>
-                            <h3 className="text-xl font-semibold text-slate-700 mb-2">Drag & Drop Image Here</h3>
+                            <h3 className="text-xl font-semibold text-slate-700 mb-2">{t('dashboard.dragDropText')}</h3>
                             <p className="text-slate-500 mb-6">or click to browse from your computer</p>
 
                             <p className="text-xs text-slate-400 font-medium bg-slate-100 px-3 py-1 rounded-full">
-                                Supported: JPEG, PNG • Max size: 5MB
+                                {t('dashboard.restrictions')}
                             </p>
 
                             <input
@@ -167,7 +169,7 @@ const Dashboard = () => {
                                     disabled={isUploading}
                                     className="px-6 py-3 rounded-xl font-semibold text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-50"
                                 >
-                                    Cancel
+                                    {t('dashboard.cancelUpload')}
                                 </button>
                                 <button
                                     onClick={handleAnalyze}
@@ -176,9 +178,9 @@ const Dashboard = () => {
                                 >
                                     {isUploading ? (
                                         <>
-                                            <Loader2 className="w-5 h-5 animate-spin" /> Analyzing Image...
+                                            <Loader2 className="w-5 h-5 animate-spin" /> {t('dashboard.analyzing')}
                                         </>
-                                    ) : 'Analyze'}
+                                    ) : t('dashboard.analyzeBtn')}
                                 </button>
                             </div>
                         </div>

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Activity, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -15,6 +17,7 @@ const Register = () => {
     const { register } = useAuth();
     const { addToast } = useUI();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const validate = () => {
         const newErrors = {};
@@ -45,6 +48,11 @@ const Register = () => {
 
     return (
         <div className="flex min-h-screen bg-slate-50">
+            {/* Absolute Language Switcher for mobile and desktop right side */}
+            <div className="absolute top-4 right-4 z-10">
+                <LanguageSwitcher className="bg-white/50 backdrop-blur-sm border border-slate-200 text-slate-700 hover:bg-white shadow-sm" />
+            </div>
+
             {/* Left split - Illustration */}
             <div className="hidden lg:flex w-1/2 bg-secondary text-white p-12 flex-col justify-between">
                 <div className="flex items-center gap-2">
@@ -52,9 +60,9 @@ const Register = () => {
                     <span className="text-2xl font-bold">Pashu Pehchan</span>
                 </div>
                 <div>
-                    <h1 className="text-4xl font-bold mb-4">Join our Platform</h1>
+                    <h1 className="text-4xl font-bold mb-4">{t('auth.register.title')}</h1>
                     <p className="text-orange-100 text-lg">
-                        Create an account to start identifying cattle breeds with AI instantly. Support government records with highly accurate insights.
+                        {t('landing.subtitle')}
                     </p>
                 </div>
                 <div className="text-sm opacity-60">
@@ -63,17 +71,17 @@ const Register = () => {
             </div>
 
             {/* Right split - Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-16 lg:pt-8">
                 <div className="max-w-md w-full">
                     <Link to="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-secondary mb-6 transition-colors">
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
+                        <ArrowLeft className="w-4 h-4 mr-2" /> {t('result.backBtn')}
                     </Link>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-2">Create an Account</h2>
-                    <p className="text-slate-500 mb-8">Sign up to access AI identification tools.</p>
+                    <h2 className="text-3xl font-bold text-slate-800 mb-2">{t('auth.register.title')}</h2>
+                    <p className="text-slate-500 mb-8">{t('auth.register.subtitle')}</p>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('auth.register.fullName')}</label>
                             <input
                                 type="text"
                                 value={name}
@@ -134,14 +142,14 @@ const Register = () => {
                             disabled={isSubmitting}
                             className="w-full bg-secondary hover:bg-[#a6561b] text-white font-bold py-3 rounded-xl shadow-md transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            {isSubmitting ? 'Creating account...' : 'Create Account'}
+                            {isSubmitting ? t('auth.register.signingUp') : t('auth.register.signUpBtn')}
                         </button>
                     </form>
 
                     <p className="mt-6 text-center text-slate-600">
-                        Already have an account?{' '}
+                        {t('auth.register.hasAccount')}{' '}
                         <Link to="/login" className="text-secondary font-bold hover:underline">
-                            Login here
+                            {t('auth.register.loginLink')}
                         </Link>
                     </p>
                 </div>

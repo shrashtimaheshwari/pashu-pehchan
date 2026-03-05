@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ShieldCheck, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ const Login = () => {
     const { login } = useAuth();
     const { addToast } = useUI();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const validate = () => {
         const newErrors = {};
@@ -44,6 +47,11 @@ const Login = () => {
 
     return (
         <div className="flex min-h-screen bg-slate-50">
+            {/* Absolute Language Switcher for mobile and desktop right side */}
+            <div className="absolute top-4 right-4 z-10">
+                <LanguageSwitcher className="bg-white/50 backdrop-blur-sm border border-slate-200 text-slate-700 hover:bg-white shadow-sm" />
+            </div>
+
             {/* Left split - Illustration */}
             <div className="hidden lg:flex w-1/2 bg-primary-dark text-white p-12 flex-col justify-between">
                 <div className="flex items-center gap-2">
@@ -51,9 +59,9 @@ const Login = () => {
                     <span className="text-2xl font-bold">Pashu Pehchan</span>
                 </div>
                 <div>
-                    <h1 className="text-4xl font-bold mb-4">Welcome Back!</h1>
+                    <h1 className="text-4xl font-bold mb-4">{t('auth.login.title')}</h1>
                     <p className="text-primary-100 text-lg">
-                        Login to access your dashboard, analyze new scans, and download reports for your cattle identification operations.
+                        {t('landing.subtitle')}
                     </p>
                 </div>
                 <div className="text-sm opacity-60">
@@ -62,17 +70,17 @@ const Login = () => {
             </div>
 
             {/* Right split - Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-16 lg:pt-8">
                 <div className="max-w-md w-full">
                     <Link to="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-primary mb-6 transition-colors">
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
+                        <ArrowLeft className="w-4 h-4 mr-2" /> {t('result.backBtn')}
                     </Link>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-2">Login to Your Account</h2>
-                    <p className="text-slate-500 mb-8">Enter your credentials to access the platform.</p>
+                    <h2 className="text-3xl font-bold text-slate-800 mb-2">{t('auth.login.title')}</h2>
+                    <p className="text-slate-500 mb-8">{t('auth.login.subtitle')}</p>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('auth.login.email')}</label>
                             <input
                                 type="email"
                                 value={email}
@@ -87,7 +95,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('auth.login.password')}</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
@@ -118,9 +126,9 @@ const Login = () => {
                                     onChange={(e) => setRememberMe(e.target.checked)}
                                     className="mr-2 rounded border-slate-300 text-primary focus:ring-primary/50"
                                 />
-                                Remember me
+                                {t('auth.login.rememberMe')}
                             </label>
-                            <Link to="/forgot-password" className="text-sm text-primary hover:underline">Forgot password?</Link>
+                            <Link to="/forgot-password" className="text-sm text-primary hover:underline">{t('auth.login.forgotPassword')}</Link>
                         </div>
 
                         <button
@@ -128,14 +136,13 @@ const Login = () => {
                             disabled={isSubmitting}
                             className="w-full bg-primary hover:bg-primary-light text-white font-bold py-3 rounded-xl shadow-md transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            {isSubmitting ? 'Logging in...' : 'Login'}
+                            {isSubmitting ? t('auth.login.signingIn') : t('auth.login.signInBtn')}
                         </button>
                     </form>
 
                     <p className="mt-6 text-center text-slate-600">
-                        Don't have an account?{' '}
-                        <Link to="/register" className="text-primary font-bold hover:underline">
-                            Register here
+                        {t('auth.login.noAccount')} <Link to="/register" className="text-primary font-bold hover:underline">
+                            {t('auth.login.signUpLink')}
                         </Link>
                     </p>
                 </div>

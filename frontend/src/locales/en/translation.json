@@ -1,0 +1,165 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "download": "Download",
+        "date": "Date",
+        "actions": "Actions"
+    },
+    "nav": {
+        "newScan": "New Scan",
+        "history": "History",
+        "analytics": "Analytics",
+        "logout": "Logout",
+        "loggedInAs": "Logged in as"
+    },
+    "breeds": {
+        "Gir": "Gir",
+        "Sahiwal": "Sahiwal",
+        "Red Sindhi": "Red Sindhi",
+        "Tharparkar": "Tharparkar",
+        "Murrah": "Murrah",
+        "Jafarabadi": "Jafarabadi"
+    },
+    "dashboard": {
+        "title": "New Cattle Scan",
+        "subtitle": "Upload an image of a cattle or buffalo to classify its breed.",
+        "dragDropText": "Click or drag & drop to upload",
+        "restrictions": "JPEG or PNG (max. 5MB)",
+        "cancelUpload": "Cancel",
+        "analyzeBtn": "Analyze Cattle Image",
+        "analyzing": "Analyzing Image...",
+        "errors": {
+            "invalidType": "Please upload a JPEG or PNG image.",
+            "tooLarge": "File is too large (max 5MB).",
+            "selectFirst": "Please select an image first.",
+            "apiFailed": "Prediction failed. Please try again."
+        }
+    },
+    "history": {
+        "title": "Scan History",
+        "subtitle": "View and manage past identification records.",
+        "searchPlaceholder": "Search by breed...",
+        "table": {
+            "image": "Image",
+            "breed": "Breed",
+            "confidence": "Confidence"
+        },
+        "empty": {
+            "title": "No predictions yet",
+            "desc": "Your previous scan history will appear here."
+        },
+        "alerts": {
+            "confirmDelete": "Delete this scan record?",
+            "deleted": "Scan deleted.",
+            "deleteError": "Could not delete scan.",
+            "downloadError": "Failed to generate report PDF.",
+            "loadError": "Failed to load history data."
+        }
+    },
+    "analytics": {
+        "title": "Analytics Dashboard",
+        "subtitle": "Platform usage and breed identification metrics.",
+        "cards": {
+            "totalScans": "Total Scans",
+            "topBreed": "Most Common Breed",
+            "avgConfidence": "Avg. Confidence"
+        },
+        "charts": {
+            "barTitle": "Breed Distribution (Bar)",
+            "pieTitle": "Breed Distribution (Pie)",
+            "count": "Count"
+        },
+        "alerts": {
+            "loadError": "Failed to load analytics data."
+        }
+    },
+    "result": {
+        "backBtn": "Back to Dashboard",
+        "title": "Scan Results",
+        "blurWarning": "This image appears slightly blurred. For more accurate results, consider uploading a clearer photo.",
+        "identifiedBreed": "Identified Breed",
+        "highConfidence": "High Confidence",
+        "moderateConfidence": "Moderate Confidence",
+        "lowConfidence": "Low Confidence",
+        "confidenceScore": "Confidence Score",
+        "scanAnother": "Scan Another Animal",
+        "probabilitiesTitle": "Model Probabilities",
+        "infoTitle": "Breed Information",
+        "info": {
+            "origin": "Origin",
+            "milkYield": "Average Milk Yield",
+            "characteristics": "Key Characteristics",
+            "unknown": "Unknown",
+            "na": "N/A",
+            "noDetail": "No detail available."
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Login to Your Account",
+            "subtitle": "Welcome back! Please enter your details.",
+            "email": "Email Address",
+            "emailPlaceholder": "you@example.com",
+            "password": "Password",
+            "passwordPlaceholder": "••••••••",
+            "forgotPassword": "Forgot password?",
+            "rememberMe": "Remember me",
+            "signInBtn": "Sign In",
+            "signingIn": "Signing In...",
+            "noAccount": "Don't have an account?",
+            "signUpLink": "Sign up free"
+        },
+        "register": {
+            "title": "Create your Account",
+            "subtitle": "Join Pashu Pehchan today.",
+            "fullName": "Full Name",
+            "namePlaceholder": "John Doe",
+            "email": "Email Address",
+            "emailPlaceholder": "you@example.com",
+            "password": "Password",
+            "passwordPlaceholder": "••••••••",
+            "signUpBtn": "Sign Up",
+            "signingUp": "Signing Up...",
+            "hasAccount": "Already have an account?",
+            "loginLink": "Log in"
+        },
+        "forgot": {
+            "title": "Reset Password",
+            "subtitle1": "Enter your email to receive a reset code.",
+            "subtitle2": "Enter the 6-digit code sent to your email.",
+            "subtitle3": "Create a new password for your account.",
+            "email": "Email Address",
+            "emailPlaceholder": "you@example.com",
+            "code": "6-Digit Code",
+            "codePlaceholder": "123456",
+            "newPassword": "New Password",
+            "newPasswordPlaceholder": "••••••••",
+            "sendCodeBtn": "Send Reset Code",
+            "verifyCodeBtn": "Verify Code",
+            "resetBtn": "Reset Password",
+            "sending": "Sending...",
+            "verifying": "Verifying...",
+            "resetting": "Resetting...",
+            "backToLogin": "Back to log in"
+        }
+    },
+    "landing": {
+        "title1": "AI-Powered",
+        "title2": "Cattle Breed Identification",
+        "subtitle": "Empowering field workers with instant, accurate breed classification for cattle and buffaloes using advanced machine learning.",
+        "startBtn": "Get Started",
+        "loginBtn": "Log In",
+        "features": {
+            "f1Title": "Instant Analysis",
+            "f1Desc": "Get breed predictions in seconds with high confidence scores.",
+            "f2Title": "Detailed Reports",
+            "f2Desc": "Download comprehensive PDF reports for official records.",
+            "f3Title": "Track History",
+            "f3Desc": "Keep a visual history of all your past identifications."
+        }
+    }
+}
