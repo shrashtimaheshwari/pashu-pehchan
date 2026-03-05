@@ -128,23 +128,41 @@
             "loginLink": "Log in"
         },
         "forgot": {
+            "sidebarTitle": "Reset Your Password",
+            "sidebarSubtitle": "Securely regain access to your cattle identification platform.",
+            "sidebarFooter": "Empowering digital agriculture.",
             "title": "Reset Password",
-            "subtitle1": "Enter your email to receive a reset code.",
-            "subtitle2": "Enter the 6-digit code sent to your email.",
-            "subtitle3": "Create a new password for your account.",
+            "step1Title": "Forgot Password",
+            "step2Title": "Enter Recovery Code",
+            "step3Title": "Create New Password",
+            "desc1": "Enter your registered email address and we'll send you a 6-digit recovery code.",
+            "desc2": "We sent a 6-digit code to",
+            "desc3": "Your code was verified. Please enter your new password below.",
             "email": "Email Address",
             "emailPlaceholder": "you@example.com",
             "code": "6-Digit Code",
-            "codePlaceholder": "123456",
+            "codePlaceholder": "••••••",
             "newPassword": "New Password",
             "newPasswordPlaceholder": "••••••••",
-            "sendCodeBtn": "Send Reset Code",
+            "passwordHelper": "Password must be at least 6 characters long.",
+            "sendCodeBtn": "Send Recovery Code",
             "verifyCodeBtn": "Verify Code",
             "resetBtn": "Reset Password",
             "sending": "Sending...",
             "verifying": "Verifying...",
             "resetting": "Resetting...",
-            "backToLogin": "Back to log in"
+            "backToLogin": "Back to Login",
+            "alerts": {
+                "emailInvalid": "Please enter a valid email address.",
+                "codeSent": "If an account exists, a code was sent to your email.",
+                "sendError": "Failed to send code. Please try again.",
+                "codeInvalid": "Please enter the 6-digit code.",
+                "codeVerified": "Code verified! Please choose a new password.",
+                "codeError": "Invalid or expired code.",
+                "passShort": "Password must be at least 6 characters.",
+                "resetSuccess": "Password reset successfully! You can now login.",
+                "resetError": "Failed to reset password."
+            }
         }
     },
     "landing": {
