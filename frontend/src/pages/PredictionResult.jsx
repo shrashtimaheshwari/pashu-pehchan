@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle, Download, Activity, ShieldCheck, Database, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import api from '../api/axios';
+import { useUI } from '../context/UIContext';
 
 const PredictionResult = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { addToast } = useUI();
 
     const result = location.state?.result;
     const preview = location.state?.preview;
+    const [isDownloading, setIsDownloading] = useState(false);
 
     useEffect(() => {
-        // Redirect back to dashboard if no data is present
         if (!result || !preview) {
             navigate('/dashboard');
         }
@@ -20,100 +23,200 @@ const PredictionResult = () => {
 
     if (!result || !preview) return null;
 
+    const handleDownload = async () => {
+        const id = result.id || result._id;
+        if (!id) return;
+
+        setIsDownloading(true);
+        try {
+            const resp = await api.get(`/predictions/${id}/report`, { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([resp.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `report-${id}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            addToast('Report downloaded successfully', 'success');
+        } catch (err) {
+            addToast('Download failed', 'error');
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
     const getConfColor = (score) => {
-        if (score > 90) return 'bg-green-500';
-        if (score > 70) return 'bg-yellow-500';
-        return 'bg-red-500';
+        if (score > 90) return 'text-primary';
+        if (score > 70) return 'text-secondary';
+        return 'text-red-500';
+    };
+
+    const getBgColor = (score) => {
+        if (score > 90) return 'bg-primary/5';
+        if (score > 70) return 'bg-secondary/5';
+        return 'bg-red-50';
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 p-4 md:p-8">
-            <div className="max-w-6xl mx-auto">
-                <button
-                    onClick={() => navigate('/dashboard')}
-                    className="flex items-center gap-2 text-slate-600 hover:text-primary font-medium mb-8 transition-colors"
-                >
-                    <ArrowLeft className="w-5 h-5" /> {t('result.backBtn')}
-                </button>
-
-                <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6 md:mb-8">{t('result.title')}</h1>
-
-                {result.blurWarning && (
-                    <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl flex items-center gap-3 mb-6 shadow-sm">
-                        <AlertTriangle className="w-6 h-6 text-yellow-500" />
-                        <p className="font-medium">{t('result.blurWarning')}</p>
-                    </div>
-                )}
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Left - Uploaded Image */}
-                    <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center h-64 md:h-[500px]">
-                        <img
-                            src={preview}
-                            alt="Uploaded Cattle"
-                            className="max-h-full max-w-full object-contain rounded-xl"
-                        />
-                    </div>
-
-                    {/* Right - Results & Metadata */}
-                    <div className="flex flex-col gap-6">
-
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                            <div className="flex justify-between items-start mb-6">
-                                <div>
-                                    <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">{t('result.identifiedBreed')}</p>
-                                    <h2 className="text-2xl md:text-4xl font-black text-primary-dark">{result.breed}</h2>
-                                </div>
-                                <div className="bg-primary/10 p-3 rounded-full">
-                                    <CheckCircle className="w-8 h-8 text-primary" />
-                                </div>
-                            </div>
-
-                            <div className="mb-4">
-                                <div className="flex justify-between items-end mb-2">
-                                    <span className="font-semibold text-slate-700">{t('result.confidenceScore')}</span>
-                                    <span className="text-2xl font-bold">{result.confidence.toFixed(1)}%</span>
-                                </div>
-                                <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                                    <div
-                                        className={`h-3 rounded-full transition-all duration-1000 ${getConfColor(result.confidence)}`}
-                                        style={{ width: `${result.confidence}%` }}
-                                    ></div>
-                                </div>
-                            </div>
+        <div className="min-h-screen bg-[#F8FAFC]">
+            {/* Minimal Header */}
+            <div className="bg-white border-b border-border/50 sticky top-0 z-50">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    <button
+                        onClick={() => navigate('/dashboard')}
+                        className="flex items-center gap-3 text-text-muted hover:text-primary font-bold transition-all group"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                            <ArrowLeft className="w-5 h-5" />
                         </div>
+                        <span className="hidden sm:inline">Back to Dashboard</span>
+                    </button>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                            <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-4">
-                                <Info className="w-5 h-5 text-secondary" /> {t('result.infoTitle')}
-                            </h3>
-
-                            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
-                                <div>
-                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.origin')}</p>
-                                    <p className="font-semibold">{result.info_card?.origin || t('result.info.unknown')}</p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.milkYield')}</p>
-                                    <p className="font-semibold">{result.info_card?.milk_yield || t('result.info.na')}</p>
-                                </div>
-                                <div className="col-span-2">
-                                    <p className="text-sm text-slate-500 mb-1">{t('result.info.characteristics')}</p>
-                                    <p className="font-medium text-slate-700">{result.info_card?.characteristics || t('result.info.noDetail')}</p>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div className="flex gap-3">
                         <button
-                            onClick={() => navigate('/dashboard')}
-                            className="mt-auto w-full py-4 rounded-xl font-bold text-primary bg-primary/10 hover:bg-primary/20 transition-all flex items-center justify-center gap-2"
+                            onClick={handleDownload}
+                            disabled={isDownloading}
+                            className="btn-primary px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-primary/20"
                         >
-                            <RotateCcw className="w-5 h-5" /> {t('result.scanAnother')}
+                            {isDownloading ? <Activity className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                            {t('common.download')} Report
                         </button>
-
                     </div>
                 </div>
             </div>
+
+            <main className="max-w-7xl mx-auto px-6 py-10 lg:py-16">
+                <div className="flex flex-col lg:flex-row gap-12">
+
+                    {/* Visual Section */}
+                    <div className="lg:w-1/2">
+                        <div className="sticky top-32">
+                            <div className="relative group">
+                                <div className="absolute -inset-4 bg-primary/5 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="relative bg-white p-4 rounded-[2.5rem] border border-border shadow-2xl overflow-hidden aspect-[4/5]">
+                                    <img
+                                        src={preview}
+                                        alt="Uploaded Cattle"
+                                        className="w-full h-full object-cover rounded-[2rem] transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    {result.blurWarning && (
+                                        <div className="absolute bottom-10 left-10 right-10 bg-red-600/90 backdrop-blur-md text-white p-6 rounded-[2rem] flex items-center gap-4 shadow-2xl">
+                                            <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                                                <AlertTriangle className="w-6 h-6" />
+                                            </div>
+                                            <div>
+                                                <p className="font-black italic uppercase tracking-widest text-[10px]">Quality Warning</p>
+                                                <p className="font-bold text-sm">Low Image Clarity Detected</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="mt-8 flex gap-6">
+                                <div className="flex-1 bg-white p-6 rounded-3xl border border-border shadow-sm flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
+                                        <Calendar className="w-6 h-6 text-primary" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">Scan Date</p>
+                                        <p className="font-bold text-text-main">{new Date().toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+                                <div className="flex-1 bg-white p-6 rounded-3xl border border-border shadow-sm flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center">
+                                        <Database className="w-6 h-6 text-secondary" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">Status</p>
+                                        <p className="font-bold text-text-main">Verified Scan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Data Section */}
+                    <div className="lg:w-1/2 space-y-10">
+                        <header>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest italic mb-6">
+                                <CheckCircle className="w-4 h-4" /> Primary Match Identified
+                            </div>
+                            <h1 className="text-6xl font-black text-text-main mb-6 leading-none">
+                                {t(`breeds.${result.breed}`, { defaultValue: result.breed })}
+                            </h1>
+                        </header>
+
+                        {/* Confidence Card */}
+                        <div className={`p-10 rounded-[3rem] border-2 border-primary/10 relative overflow-hidden ${getBgColor(result.confidence)}`}>
+                            <div className="relative z-10 flex items-center justify-between">
+                                <div>
+                                    <h3 className="text-xl font-black text-text-main mb-2">Identification Confidence</h3>
+                                    <p className="text-text-muted font-medium max-w-[200px]">Based on our high-precision deep learning algorithm.</p>
+                                </div>
+                                <div className="text-right">
+                                    <span className={`text-6xl font-black italic tracking-tighter ${getConfColor(result.confidence)}`}>
+                                        {Math.round(result.confidence)}%
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="mt-8 w-full bg-white/50 h-4 rounded-full overflow-hidden border border-primary/5">
+                                <div
+                                    className="h-full bg-primary rounded-full transition-all duration-1000 delay-300 shadow-[0_0_20px_rgba(45,90,39,0.3)]"
+                                    style={{ width: `${result.confidence}%` }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Probabilities */}
+                        <div className="bg-white p-10 rounded-[3rem] border border-border shadow-sm">
+                            <h3 className="text-xl font-black text-text-main mb-8 flex items-center gap-3">
+                                <Activity className="w-6 h-6 text-secondary" /> Other Potential Matches
+                            </h3>
+                            <div className="space-y-6">
+                                {(result.probabilities || []).map((p, idx) => (
+                                    <div key={idx} className="space-y-2">
+                                        <div className="flex justify-between text-sm font-bold uppercase tracking-widest">
+                                            <span className="text-text-main">{t(`breeds.${p.breed}`, { defaultValue: p.breed })}</span>
+                                            <span className="text-text-muted italic">{Math.round(p.score * 100)}%</span>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-slate-50 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full bg-slate-200 rounded-full"
+                                                style={{ width: `${p.score * 100}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                                {(!result.probabilities || result.probabilities.length === 0) && (
+                                    <div className="p-8 bg-slate-50 rounded-2xl text-center">
+                                        <Info className="w-8 h-8 text-slate-300 mx-auto mb-3" />
+                                        <p className="text-text-muted font-bold italic">No secondary matches detected.</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                            <button
+                                onClick={() => navigate('/dashboard')}
+                                className="flex-1 py-6 px-10 rounded-[2rem] font-black text-primary bg-primary/10 hover:bg-primary/20 transition-all flex items-center justify-center gap-4 group"
+                            >
+                                <RotateCcw className="w-6 h-6 transition-transform group-hover:rotate-180 duration-500" />
+                                Scan Another
+                            </button>
+                            <button
+                                onClick={() => navigate('/history')}
+                                className="flex-1 py-6 px-10 rounded-[2rem] font-black text-text-main bg-slate-50 border border-border hover:bg-slate-100 transition-all flex items-center justify-center gap-4"
+                            >
+                                <Database className="w-6 h-6" />
+                                View Scan History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 };

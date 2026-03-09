@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Activity, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import logo from '../assets/logo.png';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -47,41 +48,65 @@ const Register = () => {
     };
 
     return (
-        <div className="flex min-h-screen bg-slate-50">
-            {/* Absolute Language Switcher for mobile and desktop right side */}
-            <div className="absolute top-4 right-4 z-10">
-                <LanguageSwitcher className="bg-white/50 backdrop-blur-sm border border-slate-200 text-slate-700 hover:bg-white shadow-sm" />
+        <div className="flex min-h-screen bg-white">
+            {/* Left split - Brand & Illustration */}
+            <div className="hidden lg:flex w-1/2 relative bg-primary overflow-hidden">
+                <img
+                    src="https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    className="absolute inset-0 w-full h-full object-cover opacity-60"
+                    alt="Background"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent" />
+
+                <div className="relative z-10 w-full p-16 flex flex-col justify-between h-full">
+                    <div className="flex items-center gap-3">
+                        <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
+                        <span className="text-2xl font-bold text-white tracking-tight">Pashu Pehchan</span>
+                    </div>
+
+                    <div>
+                        <h1 className="text-5xl font-black text-white leading-tight mb-6">
+                            Empowering Indian <br />
+                            Agriculture through <br />
+                            <span className="text-secondary italic">Artificial Intelligence</span>
+                        </h1>
+                        <p className="text-white/80 text-lg font-medium leading-relaxed max-w-md">
+                            Join our mission to identify and track native cattle breeds. Your contribution helps preserve India's biological heritage.
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <ShieldCheck className="w-5 h-5 text-white/60" />
+                            <span className="text-sm font-bold text-white/60 uppercase tracking-widest italic">Government Backed</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* Left split - Illustration */}
-            <div className="hidden lg:flex w-1/2 bg-secondary text-white p-12 flex-col justify-between">
-                <div className="flex items-center gap-2">
-                    <Activity className="w-8 h-8 text-accent" />
-                    <span className="text-2xl font-bold">Pashu Pehchan</span>
+            {/* Right split - Content */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 relative overflow-y-auto">
+                {/* Language Switcher */}
+                <div className="absolute top-8 right-8 z-20">
+                    <LanguageSwitcher className="bg-accent text-primary border-none font-bold px-4 py-2 rounded-xl" />
                 </div>
-                <div>
-                    <h1 className="text-4xl font-bold mb-4">{t('auth.register.title')}</h1>
-                    <p className="text-orange-100 text-lg">
-                        {t('landing.subtitle')}
-                    </p>
-                </div>
-                <div className="text-sm opacity-60">
-                    Transforming standard identification workflows.
-                </div>
-            </div>
 
-            {/* Right split - Form */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-16 lg:pt-8">
-                <div className="max-w-md w-full">
-                    <Link to="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-secondary mb-6 transition-colors">
-                        <ArrowLeft className="w-4 h-4 mr-2" /> {t('result.backBtn')}
+                {/* Back Button */}
+                <div className="absolute top-8 left-8 z-20">
+                    <Link to="/" className="inline-flex items-center text-sm font-bold text-text-muted hover:text-primary transition-colors group">
+                        <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" /> {t('result.backBtn')}
                     </Link>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-2">{t('auth.register.title')}</h2>
-                    <p className="text-slate-500 mb-8">{t('auth.register.subtitle')}</p>
+                </div>
+
+                <div className="max-w-md w-full animate-in fade-in slide-in-from-right-4 duration-700">
+                    <div className="mb-10 text-center lg:text-left">
+                        <h2 className="text-4xl font-black text-text-main mb-3">{t('auth.register.title')}</h2>
+                        <p className="text-text-muted font-medium">{t('auth.register.subtitle')}</p>
+                    </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">{t('auth.register.fullName')}</label>
+                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">{t('auth.register.fullName')}</label>
                             <input
                                 type="text"
                                 value={name}
@@ -89,14 +114,14 @@ const Register = () => {
                                     setName(e.target.value);
                                     if (errors.name) setErrors({ ...errors, name: false });
                                 }}
-                                className={`w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${errors.name ? 'border-red-500 bg-red-50' : 'border-slate-300'
-                                    }`}
-                                placeholder="Ramesh Kumar"
+                                className={`w-full px-5 py-4 rounded-2xl border bg-slate-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary/5 transition-all
+                                    ${errors.name ? 'border-red-500 bg-red-50' : 'border-border'}`}
+                                placeholder="Arjun Sharma"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">Official Email Address</label>
                             <input
                                 type="email"
                                 value={email}
@@ -104,14 +129,14 @@ const Register = () => {
                                     setEmail(e.target.value);
                                     if (errors.email) setErrors({ ...errors, email: false });
                                 }}
-                                className={`w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${errors.email ? 'border-red-500 bg-red-50' : 'border-slate-300'
-                                    }`}
-                                placeholder="ramesh@example.com"
+                                className={`w-full px-5 py-4 rounded-2xl border bg-slate-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary/5 transition-all
+                                    ${errors.email ? 'border-red-500 bg-red-50' : 'border-border'}`}
+                                placeholder="arjun.sharma@gov.in"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
@@ -120,38 +145,57 @@ const Register = () => {
                                         setPassword(e.target.value);
                                         if (errors.password) setErrors({ ...errors, password: false });
                                     }}
-                                    className={`w-full px-4 py-3 rounded-xl border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${errors.password ? 'border-red-500 bg-red-50' : 'border-slate-300'
-                                        }`}
+                                    className={`w-full px-5 py-4 rounded-2xl border bg-slate-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary/5 transition-all
+                                        ${errors.password ? 'border-red-500 bg-red-50' : 'border-border'}`}
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors focus:outline-none"
                                 >
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
                             </div>
-                            <p className="mt-1.5 text-xs text-slate-500">
-                                Password must be at least 6 characters long.
-                            </p>
                         </div>
+
+                        <label className="flex items-start text-sm font-bold text-text-muted cursor-pointer select-none group mt-4">
+                            <input
+                                type="checkbox"
+                                required
+                                className="w-4 h-4 rounded border-border text-primary focus:ring-primary/20 mr-3 mt-1"
+                            />
+                            <span className="group-hover:text-primary transition-colors leading-relaxed">
+                                I agree to the Terms of Service and Privacy Policy
+                            </span>
+                        </label>
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-secondary hover:bg-[#a6561b] text-white font-bold py-3 rounded-xl shadow-md transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full btn-primary py-4 text-lg shadow-xl shadow-primary/10 mt-6"
                         >
-                            {isSubmitting ? t('auth.register.signingUp') : t('auth.register.signUpBtn')}
+                            {isSubmitting ? (
+                                <>
+                                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white/30 border-t-white mr-2" />
+                                    {t('auth.register.signingUp')}
+                                </>
+                            ) : (
+                                <>
+                                    Create Account <ArrowLeft className="w-5 h-5 rotate-180" />
+                                </>
+                            )}
                         </button>
                     </form>
 
-                    <p className="mt-6 text-center text-slate-600">
-                        {t('auth.register.hasAccount')}{' '}
-                        <Link to="/login" className="text-secondary font-bold hover:underline">
-                            {t('auth.register.loginLink')}
-                        </Link>
-                    </p>
+                    <div className="mt-10 text-center border-t border-border pt-8">
+                        <p className="text-text-muted font-medium">
+                            Already have an account?{' '}
+                            <Link to="/login" className="text-primary font-black hover:underline underline-offset-4 decoration-2">
+                                Sign in here
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

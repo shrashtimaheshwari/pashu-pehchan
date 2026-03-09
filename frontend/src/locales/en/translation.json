@@ -25,24 +25,36 @@
         "Jafarabadi": "Jafarabadi"
     },
     "dashboard": {
-        "title": "New Cattle Scan",
-        "subtitle": "Upload an image of a cattle or buffalo to classify its breed.",
-        "dragDropText": "Click or drag & drop to upload",
-        "restrictions": "JPEG or PNG (max. 5MB)",
-        "cancelUpload": "Cancel",
-        "analyzeBtn": "Analyze Cattle Image",
-        "analyzing": "Analyzing Image...",
+        "headerTitle": "Breed Identification",
+        "headerSubtitle": "Quickly identify cattle breeds using our AI-powered identification engine.",
+        "scanSectionTitle": "Scan New Animal",
+        "uploadTitle": "Upload or drag & drop image",
+        "uploadDesc": "High quality photos from side or front view work best for accuracy.",
+        "supports": "Supports JPG, JPEG, PNG",
+        "maxSize": "Max 10MB",
+        "analyzeBtn": "Analyze Now",
+        "analyzing": "Processing...",
+        "recentScans": "Recent Scans",
+        "viewAll": "View All",
+        "empty": {
+            "title": "No scans found",
+            "desc": "Your identification history will appear here."
+        },
         "errors": {
-            "invalidType": "Please upload a JPEG or PNG image.",
-            "tooLarge": "File is too large (max 5MB).",
-            "selectFirst": "Please select an image first.",
-            "apiFailed": "Prediction failed. Please try again."
+            "invalidType": "Please upload a valid image (JPG, JPEG, PNG).",
+            "tooLarge": "File is too large (max 10MB).",
+            "apiFailed": "Identification failed. Please try again."
         }
     },
     "history": {
         "title": "Scan History",
         "subtitle": "View and manage past identification records.",
         "searchPlaceholder": "Search by breed...",
+        "sort": {
+            "label": "Sort By",
+            "newest": "Newest First",
+            "oldest": "Oldest First"
+        },
         "table": {
             "image": "Image",
             "breed": "Breed",
@@ -58,23 +70,42 @@
             "deleteError": "Could not delete scan.",
             "downloadError": "Failed to generate report PDF.",
             "loadError": "Failed to load history data."
+        },
+        "stats": {
+            "highAccuracy": "High Accuracy",
+            "recentActivity": "Recent Activity"
+        },
+        "actions": {
+            "startScan": "Start First Scan",
+            "viewReport": "View Report"
+        },
+        "tags": {
+            "cattle": "Cattle"
         }
     },
     "analytics": {
-        "title": "Analytics Dashboard",
-        "subtitle": "Platform usage and breed identification metrics.",
+        "headerTitle": "Analytics Overview",
+        "headerSubtitle": "Monitor your identification trends and accuracy metrics.",
+        "exportBtn": "Export Detailed Report",
         "cards": {
             "totalScans": "Total Scans",
-            "topBreed": "Most Common Breed",
-            "avgConfidence": "Avg. Confidence"
+            "accuracyRate": "Accuracy Rate",
+            "mostIdentified": "Most Identified"
         },
+        "traits": {},
         "charts": {
-            "barTitle": "Breed Distribution (Bar)",
-            "pieTitle": "Breed Distribution (Pie)",
-            "count": "Count"
+            "activityTitle": "Scan Activity",
+            "activitySubtitle": "Day-by-day identification frequency",
+            "last7Days": "Last 7 Days",
+            "distributionTitle": "Breed Analytics",
+            "distributionSubtitle": "Comprehensive breed distribution overview",
+            "noData": "Not enough data to map distribution",
+            "breedToggle": "Breed Analysis",
+            "weeklyToggle": "Weekly Trends"
         },
         "alerts": {
-            "loadError": "Failed to load analytics data."
+            "loadError": "Failed to load analytics data.",
+            "exportSuccess": "Report exported successfully"
         }
     },
     "result": {
