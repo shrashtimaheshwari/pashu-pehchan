@@ -256,8 +256,8 @@ const Dashboard = () => {
                                             onClick={() => navigate('/result', { state: { result: scan, preview: scan.img_url || scan.imageUrl } })}
                                             className="group flex gap-4 p-4 rounded-[1.5rem] border border-border/50 hover:border-primary/30 hover:bg-primary/[0.01] transition-all cursor-pointer"
                                         >
-                                            <div className="w-20 h-20 bg-slate-50 rounded-2xl overflow-hidden border border-border/30 shrink-0">
-                                                <img src={scan.img_url || scan.imageUrl} alt={scan.breed} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                            <div className="w-20 h-20 bg-slate-50 rounded-2xl overflow-hidden border border-border/30 shrink-0 flex items-center justify-center">
+                                                <img src={scan.img_url || scan.imageUrl} alt={scan.breed} className="w-full h-full object-contain transition-transform group-hover:scale-105" />
                                             </div>
                                             <div className="flex-1 min-w-0 flex flex-col justify-center">
                                                 <h4 className="font-bold text-text-main truncate group-hover:text-primary transition-colors">
@@ -265,7 +265,7 @@ const Dashboard = () => {
                                                 </h4>
                                                 <div className="flex items-center gap-3 mt-1.5">
                                                     <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-secondary">
-                                                        <Activity className="w-3 h-3" /> {(scan.confidence * 100).toFixed(1)}%
+                                                        <Activity className="w-3 h-3" /> {parseFloat(scan.confidence).toFixed(2)}%
                                                     </span>
                                                     <span className="flex items-center gap-1 text-[10px] font-bold text-text-muted uppercase tracking-wider">
                                                         <Calendar className="w-3 h-3" /> {formatDate(scan.date || scan.createdAt)}

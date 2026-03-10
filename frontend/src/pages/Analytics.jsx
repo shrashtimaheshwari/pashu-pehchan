@@ -111,7 +111,7 @@ const Analytics = () => {
         const csvRows = scans.map(s => [
             s.id || s._id,
             s.breed,
-            `${(s.confidence * 100).toFixed(2)}%`,
+            `${parseFloat(s.confidence).toFixed(2)}%`,
             new Date(s.date || s.createdAt).toLocaleString()
         ].join(','));
 

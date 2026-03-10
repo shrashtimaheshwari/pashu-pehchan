@@ -71,8 +71,9 @@ const Sidebar = () => {
                         {user?.name?.charAt(0).toUpperCase() || 'U'}
                     </div>
                     <div className="min-w-0">
-                        <p className="font-bold text-text-main truncate">{user?.name || 'User'}</p>
                         <p className="text-xs text-text-muted font-medium uppercase tracking-wider">{t('nav.loggedInAs')}</p>
+                        <p className="font-bold text-text-main truncate">{user?.name || 'User'}</p>
+                        
                     </div>
                 </div>
 
