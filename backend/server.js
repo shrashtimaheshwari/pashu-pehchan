@@ -18,6 +18,7 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 const predictRoutes = require('./routes/predictRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const supportRoutes = require('./routes/supportRoutes');
 const reportController = require('./controllers/reportController');
 const { protect } = require('./middleware/auth');
 
@@ -25,6 +26,7 @@ const { protect } = require('./middleware/auth');
 app.use('/api/auth', authRoutes);
 app.use('/api', predictRoutes); // Contains /predict, /predictions, /predictions/:id
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/support', supportRoutes);
 
 // Isolated Report Route
 app.get('/api/predictions/:id/report', protect, reportController.downloadReport);

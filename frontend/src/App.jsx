@@ -13,6 +13,9 @@ import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Analytics from './pages/Analytics';
 import PredictionResult from './pages/PredictionResult';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Support from './pages/Support';
 
 const AppContent = () => {
   const { user, loading } = useAuth();
@@ -42,6 +45,9 @@ const AppContent = () => {
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
         <Route path="/forgot-password" element={!user ? <ForgotPassword /> : <Navigate to="/dashboard" />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/support" element={<Support />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />

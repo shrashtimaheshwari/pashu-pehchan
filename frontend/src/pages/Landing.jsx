@@ -105,8 +105,8 @@ const Landing = () => {
                                 <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-border group-hover:scale-110 transition-transform">
                                     <ShieldCheck className="w-8 h-8 text-primary" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3">Blockchain Verified</h3>
-                                <p className="text-text-muted leading-relaxed">Every identification is unique and verifiable, ensuring the integrity of agriculture data records.</p>
+                                <h3 className="text-xl font-bold mb-3">Heritage Preservation</h3>
+                                <p className="text-text-muted leading-relaxed">Document and preserve India's native cattle breeds for future generations through comprehensive digital records.</p>
                             </div>
                         </div>
                     </div>
@@ -122,9 +122,9 @@ const Landing = () => {
                     </div>
                     <p className="text-white/60 text-sm font-medium">© {new Date().getFullYear()} Pashu Pehchan. Government of India Initiative.</p>
                     <div className="flex gap-6">
-                        <a href="#" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Privacy Policy</a>
-                        <a href="#" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Terms of Service</a>
-                        <a href="#" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Support</a>
+                        <Link to="/privacy-policy" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Privacy Policy</Link>
+                        <Link to="/terms-of-service" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Terms of Service</Link>
+                        <Link to="/support" className="text-white/60 hover:text-white transition-colors text-sm font-bold">Support</Link>
                     </div>
                 </div>
             </footer>

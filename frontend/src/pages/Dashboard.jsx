@@ -58,7 +58,7 @@ const Dashboard = () => {
             return;
         }
 
-        if (selectedFile.size > 10 * 1024 * 1024) {
+        if (selectedFile.size > 5 * 1024 * 1024) {
             addToast(t('dashboard.errors.tooLarge'), 'error');
             return;
         }

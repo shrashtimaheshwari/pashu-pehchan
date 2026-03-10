@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShieldCheck, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
@@ -18,7 +18,18 @@ const Register = () => {
     const { register } = useAuth();
     const { addToast } = useUI();
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation();
+
+    // Restore form data when returning from ToS/PP
+    useEffect(() => {
+        if (location.state?.formData) {
+            const { name, email, password } = location.state.formData;
+            setName(name);
+            setEmail(email);
+            setPassword(password);
+        }
+    }, [location.state]);
 
     const validate = () => {
         const newErrors = {};
@@ -166,7 +177,14 @@ const Register = () => {
                                 className="w-4 h-4 rounded border-border text-primary focus:ring-primary/20 mr-3 mt-1"
                             />
                             <span className="group-hover:text-primary transition-colors leading-relaxed">
-                                I agree to the Terms of Service and Privacy Policy
+                                I agree to the{' '}
+                                <Link to="/terms-of-service" state={{ from: '/register', formData: { name, email, password } }} className="text-primary font-black hover:underline underline-offset-2 decoration-2">
+                                    Terms of Service
+                                </Link>
+                                {' '}and{' '}
+                                <Link to="/privacy-policy" state={{ from: '/register', formData: { name, email, password } }} className="text-primary font-black hover:underline underline-offset-2 decoration-2">
+                                    Privacy Policy
+                                </Link>
                             </span>
                         </label>
 

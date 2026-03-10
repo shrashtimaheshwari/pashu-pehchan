@@ -31,7 +31,7 @@
         "uploadTitle": "Upload or drag & drop image",
         "uploadDesc": "High quality photos from side or front view work best for accuracy.",
         "supports": "Supports JPG, JPEG, PNG",
-        "maxSize": "Max 10MB",
+        "maxSize": "Max 5MB",
         "analyzeBtn": "Analyze Now",
         "analyzing": "Processing...",
         "recentScans": "Recent Scans",
@@ -42,7 +42,7 @@
         },
         "errors": {
             "invalidType": "Please upload a valid image (JPG, JPEG, PNG).",
-            "tooLarge": "File is too large (max 10MB).",
+            "tooLarge": "File is too large (max 5MB).",
             "apiFailed": "Identification failed. Please try again."
         }
     },
