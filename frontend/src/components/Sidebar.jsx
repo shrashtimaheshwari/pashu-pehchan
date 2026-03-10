@@ -33,7 +33,7 @@ const Sidebar = () => {
                     className="flex items-center gap-3 cursor-pointer"
                     onClick={() => handleNav('/')}
                 >
-                    <img src={logo} alt="Pashu Pehchan" className="w-10 h-10 object-contain" />
+                    <img src={logo} alt="Pashu Pehchan" className="w-14 h-14 object-contain" />
                     <span className="text-primary font-bold text-xl tracking-tight">Pashu Pehchan</span>
                 </div>
                 {/* Close button - mobile only */}

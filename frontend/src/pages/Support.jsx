@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, Mail, MessageCircle, Clock, Zap } from 'lucide-react';
 import { useUI } from '../context/UIContext';
@@ -6,6 +6,10 @@ import api from '../api/axios';
 import logo from '../assets/logo.png';
 
 const Support = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const location = useLocation();
     const fromRegister = location.state?.from === '/register';
     const backLink = fromRegister ? '/register' : '/';

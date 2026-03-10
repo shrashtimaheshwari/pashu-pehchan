@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShieldCheck, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, Eye, EyeOff, CheckCircle2, Circle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
@@ -31,11 +31,21 @@ const Register = () => {
         }
     }, [location.state]);
 
+    const passwordCriteria = [
+        { id: 'length', text: t('auth.register.passwordCriteria.length'), regex: /.{8,}/ },
+        { id: 'uppercase', text: t('auth.register.passwordCriteria.uppercase'), regex: /[A-Z]/ },
+        { id: 'lowercase', text: t('auth.register.passwordCriteria.lowercase'), regex: /[a-z]/ },
+        { id: 'number', text: t('auth.register.passwordCriteria.number'), regex: /[0-9]/ }
+    ];
+
     const validate = () => {
         const newErrors = {};
         if (!name) newErrors.name = true;
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) newErrors.email = true;
-        if (!password || password.length < 6) newErrors.password = true;
+        
+        const isPasswordValid = passwordCriteria.every(criterion => criterion.regex.test(password));
+        if (!password || !isPasswordValid) newErrors.password = true;
+        
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -71,7 +81,7 @@ const Register = () => {
 
                 <div className="relative z-10 w-full p-16 flex flex-col justify-between h-full">
                     <div className="flex items-center gap-3">
-                        <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
+                        <img src={logo} alt="Logo" className="w-20 h-20 object-contain" />
                         <span className="text-2xl font-bold text-white tracking-tight">Pashu Pehchan</span>
                     </div>
 
@@ -132,7 +142,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">Official Email Address</label>
+                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">{t('auth.register.officialEmail')}</label>
                             <input
                                 type="email"
                                 value={email}
@@ -147,7 +157,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">Password</label>
+                            <label className="block text-sm font-bold text-text-main mb-2 tracking-wide uppercase">{t('auth.register.password')}</label>
                             <div className="relative">
                                 <input
                                     type={showPassword ? 'text' : 'password'}
@@ -168,6 +178,25 @@ const Register = () => {
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
                             </div>
+                            
+                            {/* Interactive Password Checklist */}
+                            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 p-4 bg-slate-50 rounded-xl border border-border">
+                                {passwordCriteria.map(criterion => {
+                                    const isMet = criterion.regex.test(password);
+                                    return (
+                                        <div key={criterion.id} className="flex items-center gap-2">
+                                            {isMet ? (
+                                                <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                                            ) : (
+                                                <Circle className="w-4 h-4 text-text-muted shrink-0" />
+                                            )}
+                                            <span className={`text-xs font-bold transition-colors ${isMet ? 'text-green-600' : 'text-text-muted'}`}>
+                                                {criterion.text}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         <label className="flex items-start text-sm font-bold text-text-muted cursor-pointer select-none group mt-4">
@@ -177,14 +206,15 @@ const Register = () => {
                                 className="w-4 h-4 rounded border-border text-primary focus:ring-primary/20 mr-3 mt-1"
                             />
                             <span className="group-hover:text-primary transition-colors leading-relaxed">
-                                I agree to the{' '}
+                                {t('auth.register.termsCheckbox.agree')}
                                 <Link to="/terms-of-service" state={{ from: '/register', formData: { name, email, password } }} className="text-primary font-black hover:underline underline-offset-2 decoration-2">
-                                    Terms of Service
+                                    {t('auth.register.termsCheckbox.tos')}
                                 </Link>
-                                {' '}and{' '}
+                                {t('auth.register.termsCheckbox.and')}
                                 <Link to="/privacy-policy" state={{ from: '/register', formData: { name, email, password } }} className="text-primary font-black hover:underline underline-offset-2 decoration-2">
-                                    Privacy Policy
+                                    {t('auth.register.termsCheckbox.privacy')}
                                 </Link>
+                                {t('auth.register.termsCheckbox.suffix')}
                             </span>
                         </label>
 
@@ -200,7 +230,7 @@ const Register = () => {
                                 </>
                             ) : (
                                 <>
-                                    Create Account <ArrowLeft className="w-5 h-5 rotate-180" />
+                                    {t('auth.register.createBtn')} <ArrowLeft className="w-5 h-5 rotate-180" />
                                 </>
                             )}
                         </button>
@@ -208,9 +238,9 @@ const Register = () => {
 
                     <div className="mt-10 text-center border-t border-border pt-8">
                         <p className="text-text-muted font-medium">
-                            Already have an account?{' '}
+                            {t('auth.register.alreadyHaveAccount')}
                             <Link to="/login" className="text-primary font-black hover:underline underline-offset-4 decoration-2">
-                                Sign in here
+                                {t('auth.register.signInHere')}
                             </Link>
                         </p>
                     </div>

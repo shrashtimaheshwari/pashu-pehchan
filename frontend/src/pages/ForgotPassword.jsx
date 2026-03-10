@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, Eye, EyeOff, Loader2, CheckCircle2, Circle } from 'lucide-react';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -57,9 +57,18 @@ const ForgotPassword = () => {
         }
     };
 
+    const passwordCriteria = [
+        { id: 'length', text: 'At least 8 characters', regex: /.{8,}/ },
+        { id: 'uppercase', text: 'One uppercase letter', regex: /[A-Z]/ },
+        { id: 'lowercase', text: 'One lowercase letter', regex: /[a-z]/ },
+        { id: 'number', text: 'One number (0-9)', regex: /[0-9]/ }
+    ];
+
     const handleResetPassword = async (e) => {
         e.preventDefault();
-        if (!password || password.length < 6) {
+        
+        const isPasswordValid = passwordCriteria.every(criterion => criterion.regex.test(password));
+        if (!password || !isPasswordValid) {
             addToast(t('auth.forgot.alerts.passShort'), 'error');
             return;
         }
@@ -90,7 +99,7 @@ const ForgotPassword = () => {
 
                 <div className="relative z-10 w-full p-16 flex flex-col justify-between h-full">
                     <div className="flex items-center gap-3">
-                        <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
+                        <img src={logo} alt="Logo" className="w-20 h-20 object-contain" />
                         <span className="text-2xl font-bold text-white tracking-tight">Pashu Pehchan</span>
                     </div>
 
@@ -241,6 +250,25 @@ const ForgotPassword = () => {
                                         >
                                             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                         </button>
+                                    </div>
+                                    
+                                    {/* Interactive Password Checklist */}
+                                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 p-4 bg-slate-50 rounded-xl border border-border">
+                                        {passwordCriteria.map(criterion => {
+                                            const isMet = criterion.regex.test(password);
+                                            return (
+                                                <div key={criterion.id} className="flex items-center gap-2">
+                                                    {isMet ? (
+                                                        <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
+                                                    ) : (
+                                                        <Circle className="w-4 h-4 text-text-muted shrink-0" />
+                                                    )}
+                                                    <span className={`text-xs font-bold transition-colors ${isMet ? 'text-green-600' : 'text-text-muted'}`}>
+                                                        {criterion.text}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                     <p className="mt-3 text-xs font-bold text-text-muted uppercase tracking-wider">
                                         {t('auth.forgot.passwordHelper')}

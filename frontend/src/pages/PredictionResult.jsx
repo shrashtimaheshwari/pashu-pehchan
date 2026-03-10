@@ -93,15 +93,15 @@ const PredictionResult = () => {
                 </div>
             </div>
 
-            <main className="max-w-7xl mx-auto px-6 py-10 lg:py-16">
-                <div className="flex flex-col lg:flex-row gap-12">
+            <main className="max-w-7xl mx-auto px-6 py-6 lg:py-8">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
 
                     {/* Visual Section */}
                     <div className="lg:w-1/2">
-                        <div className="sticky top-32">
+                        <div className="sticky top-28">
                             <div className="relative group">
                                 <div className="absolute -inset-4 bg-primary/5 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                                <div className="relative bg-white p-4 rounded-[2.5rem] border border-border shadow-2xl overflow-hidden aspect-[4/5] flex items-center justify-center bg-slate-50">
+                                <div className="relative bg-white p-4 rounded-[2rem] border border-border shadow-xl overflow-hidden aspect-[4/3] flex items-center justify-center bg-slate-50">
                                     <img
                                         src={preview}
                                         alt="Uploaded Cattle"
@@ -121,23 +121,23 @@ const PredictionResult = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-8 flex gap-6">
-                                <div className="flex-1 bg-white p-6 rounded-3xl border border-border shadow-sm flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
-                                        <Calendar className="w-6 h-6 text-primary" />
+                            <div className="mt-4 flex gap-4">
+                                <div className="flex-1 bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                                        <Calendar className="w-5 h-5 text-primary" />
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">{t('result.scanDate')}</p>
-                                        <p className="font-bold text-text-main">{new Date().toLocaleDateString()}</p>
+                                        <p className="font-bold text-sm text-text-main">{new Date().toLocaleDateString()}</p>
                                     </div>
                                 </div>
-                                <div className="flex-1 bg-white p-6 rounded-3xl border border-border shadow-sm flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center">
-                                        <Database className="w-6 h-6 text-secondary" />
+                                <div className="flex-1 bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
+                                        <Database className="w-5 h-5 text-secondary" />
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">{t('result.status')}</p>
-                                        <p className="font-bold text-text-main">{t('result.verifiedScan')}</p>
+                                        <p className="font-bold text-sm text-text-main">{t('result.verifiedScan')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -145,30 +145,30 @@ const PredictionResult = () => {
                     </div>
 
                     {/* Data Section */}
-                    <div className="lg:w-1/2 space-y-10">
+                    <div className="lg:w-1/2 space-y-6">
                         <header>
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest italic mb-6">
-                                <CheckCircle className="w-4 h-4" /> {t('result.primaryMatch')}
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest italic mb-3">
+                                <CheckCircle className="w-3 h-3" /> {t('result.primaryMatch')}
                             </div>
-                            <h1 className="text-6xl font-black text-text-main mb-6 leading-none">
+                            <h1 className="text-4xl font-black text-text-main mb-2 leading-none">
                                 {t(`breeds.${result.breed}`, { defaultValue: result.breed })}
                             </h1>
                         </header>
 
                         {/* Confidence Card */}
-                        <div className={`p-10 rounded-[3rem] border-2 border-primary/10 relative overflow-hidden ${getBgColor(result.confidence)}`}>
+                        <div className={`p-6 rounded-[2rem] border-2 border-primary/10 relative overflow-hidden ${getBgColor(result.confidence)}`}>
                             <div className="relative z-10 flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-xl font-black text-text-main mb-2">{t('result.confidenceScore')}</h3>
-                                    <p className="text-text-muted font-medium max-w-[200px]">Based on our high-precision deep learning algorithm.</p>
+                                    <h3 className="text-lg font-black text-text-main mb-1">{t('result.confidenceScore')}</h3>
+                                    <p className="text-sm text-text-muted font-medium max-w-[200px]">Based on our high-precision deep learning algorithm.</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className={`text-6xl font-black italic tracking-tighter ${getConfColor(result.confidence)}`}>
+                                    <span className={`text-4xl font-black italic tracking-tighter ${getConfColor(result.confidence)}`}>
                                         {Math.round(result.confidence)}%
                                     </span>
                                 </div>
                             </div>
-                            <div className="mt-8 w-full bg-white/50 h-4 rounded-full overflow-hidden border border-primary/5">
+                            <div className="mt-4 w-full bg-white/50 h-2.5 rounded-full overflow-hidden border border-primary/5">
                                 <div
                                     className="h-full bg-primary rounded-full transition-all duration-1000 delay-300 shadow-[0_0_20px_rgba(45,90,39,0.3)]"
                                     style={{ width: `${result.confidence}%` }}
@@ -177,11 +177,11 @@ const PredictionResult = () => {
                         </div>
 
                         {/* Probabilities */}
-                        <div className="bg-white p-10 rounded-[3rem] border border-border shadow-sm">
-                            <h3 className="text-xl font-black text-text-main mb-8 flex items-center gap-3">
-                                <Activity className="w-6 h-6 text-secondary" /> {t('result.probabilitiesTitle')}
+                        <div className="bg-white p-6 rounded-[2rem] border border-border shadow-sm">
+                            <h3 className="text-lg font-black text-text-main mb-4 flex items-center gap-2">
+                                <Activity className="w-5 h-5 text-secondary" /> {t('result.probabilitiesTitle')}
                             </h3>
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 {(result.probabilities || []).map((p, idx) => (
                                     <div key={idx} className="space-y-2">
                                         <div className="flex justify-between text-sm font-bold uppercase tracking-widest">
@@ -206,26 +206,26 @@ const PredictionResult = () => {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                        <div className="flex flex-col sm:flex-row gap-3 pt-2">
                             <button
                                 onClick={() => navigate('/dashboard')}
-                                className="flex-1 py-6 px-10 rounded-[2rem] font-black text-primary bg-primary/10 hover:bg-primary/20 transition-all flex items-center justify-center gap-4 group"
+                                className="flex-1 py-4 px-4 rounded-2xl font-black text-primary bg-primary/10 hover:bg-primary/20 transition-all flex items-center justify-center gap-2 group text-sm"
                             >
-                                <RotateCcw className="w-6 h-6 transition-transform group-hover:rotate-180 duration-500" />
+                                <RotateCcw className="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" />
                                 {t('result.scanAnother')}
                             </button>
                             <button
                                 onClick={() => setShowBreedInfo(true)}
-                                className="flex-1 py-6 px-10 rounded-[2rem] font-black text-secondary bg-secondary/10 hover:bg-secondary/20 transition-all flex items-center justify-center gap-4 group"
+                                className="flex-1 py-4 px-4 rounded-2xl font-black text-secondary bg-secondary/10 hover:bg-secondary/20 transition-all flex items-center justify-center gap-2 group text-sm"
                             >
-                                <Info className="w-6 h-6" />
+                                <Info className="w-4 h-4" />
                                 {t('result.viewMoreInfo')}
                             </button>
                             <button
                                 onClick={() => navigate('/history')}
-                                className="flex-1 py-6 px-10 rounded-[2rem] font-black text-text-main bg-slate-50 border border-border hover:bg-slate-100 transition-all flex items-center justify-center gap-4"
+                                className="flex-1 py-4 px-4 rounded-2xl font-black text-text-main bg-slate-50 border border-border hover:bg-slate-100 transition-all flex items-center justify-center gap-2 text-sm"
                             >
-                                <Database className="w-6 h-6" />
+                                <Database className="w-4 h-4" />
                                 {t('result.viewHistory')}
                             </button>
                         </div>

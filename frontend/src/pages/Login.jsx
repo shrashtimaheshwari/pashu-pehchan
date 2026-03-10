@@ -59,7 +59,7 @@ const Login = () => {
 
                 <div className="relative z-10 w-full p-16 flex flex-col justify-between h-full">
                     <div className="flex items-center gap-3">
-                        <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
+                        <img src={logo} alt="Logo" className="w-20 h-20 object-contain" />
                         <span className="text-2xl font-bold text-white tracking-tight">Pashu Pehchan</span>
                     </div>
 

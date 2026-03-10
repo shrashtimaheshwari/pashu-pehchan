@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UploadCloud, Image as ImageIcon, X, Loader2, History, ChevronRight, Activity, Calendar } from 'lucide-react';
+import { UploadCloud, Image as ImageIcon, X, Loader2, History, ChevronRight, Activity, Calendar, HelpCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
+import GuideModal from '../components/GuideModal';
 import logo from '../assets/logo.png';
 
 const Dashboard = () => {
@@ -13,6 +14,7 @@ const Dashboard = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [recentScans, setRecentScans] = useState([]);
     const [isLoadingScans, setIsLoadingScans] = useState(true);
+    const [isGuideOpen, setIsGuideOpen] = useState(false);
 
     const fileInputRef = useRef(null);
     const { user } = useAuth();
@@ -291,6 +293,23 @@ const Dashboard = () => {
                     </div>
                 </div>
             </main>
+
+            {/* Help / Guide Floating Action Button */}
+            <button
+                onClick={() => setIsGuideOpen(true)}
+                className="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] transition-all hover:-translate-y-1 flex items-center gap-2 group z-40"
+            >
+                <HelpCircle className="w-6 h-6" />
+                <span className="font-bold pr-2 overflow-hidden max-w-0 group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap opacity-0 group-hover:opacity-100 hidden sm:block">
+                    Help / सहायता
+                </span>
+            </button>
+
+            {/* Guide Modal Component */}
+            <GuideModal 
+                isOpen={isGuideOpen} 
+                onClose={() => setIsGuideOpen(false)} 
+            />
         </div>
     );
 };

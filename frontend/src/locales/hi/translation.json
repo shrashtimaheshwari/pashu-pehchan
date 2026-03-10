@@ -167,11 +167,28 @@
             "fullName": "पूरा नाम",
             "namePlaceholder": "जॉन डो",
             "email": "ईमेल पता",
+            "officialEmail": "आधिकारिक ई-मेल पता",
             "emailPlaceholder": "you@example.com",
             "password": "पासवर्ड",
             "passwordPlaceholder": "••••••••",
+            "passwordCriteria": {
+                "length": "कम से कम 8 अक्षर",
+                "uppercase": "एक बड़ा अक्षर (uppercase)",
+                "lowercase": "एक छोटा अक्षर (lowercase)",
+                "number": "एक नंबर (0-9)"
+            },
+            "termsCheckbox": {
+                "agree": "मैं ",
+                "tos": "सेवा की शर्तों",
+                "and": " और ",
+                "privacy": "गोपनीयता नीति",
+                "suffix": " से सहमत हूँ"
+            },
             "signUpBtn": "साइन अप करें",
+            "createBtn": "खाता बनाएं",
             "signingUp": "साइन अप हो रहा है...",
+            "alreadyHaveAccount": "क्या आपके पास पहले से खाता है? ",
+            "signInHere": "यहाँ साइन इन करें",
             "hasAccount": "क्या आपके पास पहले से खाता है?",
             "loginLink": "लॉग इन करें"
         },

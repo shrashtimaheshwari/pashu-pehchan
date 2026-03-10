@@ -167,11 +167,28 @@
             "fullName": "Full Name",
             "namePlaceholder": "John Doe",
             "email": "Email Address",
+            "officialEmail": "Official Email Address",
             "emailPlaceholder": "you@example.com",
             "password": "Password",
             "passwordPlaceholder": "••••••••",
+            "passwordCriteria": {
+                "length": "At least 8 characters",
+                "uppercase": "One uppercase letter",
+                "lowercase": "One lowercase letter",
+                "number": "One number (0-9)"
+            },
+            "termsCheckbox": {
+                "agree": "I agree to the ",
+                "tos": "Terms of Service",
+                "and": " and ",
+                "privacy": "Privacy Policy",
+                "suffix": ""
+            },
             "signUpBtn": "Sign Up",
+            "createBtn": "Create Account",
             "signingUp": "Signing Up...",
+            "alreadyHaveAccount": "Already have an account? ",
+            "signInHere": "Sign in here",
             "hasAccount": "Already have an account?",
             "loginLink": "Log in"
         },

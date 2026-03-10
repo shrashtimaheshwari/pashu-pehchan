@@ -10,7 +10,7 @@ const Landing = () => {
             <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border px-6 py-4">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+                        <img src={logo} alt="Logo" className="w-14 h-14 object-contain" />
                         <span className="text-xl font-bold text-primary tracking-tight">Pashu Pehchan</span>
                     </div>
                     <div className="flex gap-4 items-center">
@@ -117,7 +117,7 @@ const Landing = () => {
             <footer className="bg-primary py-12 px-6">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-3">
-                        <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
+                        <img src={logo} alt="Logo" className="w-12 h-12 object-contain" />
                         <span className="text-white font-bold text-xl">Pashu Pehchan</span>
                     </div>
                     <p className="text-white/60 text-sm font-medium">© {new Date().getFullYear()} Pashu Pehchan. Government of India Initiative.</p>
