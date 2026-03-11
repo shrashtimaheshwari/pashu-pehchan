@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0">
+  <defs>
+    <linearGradient id="cowBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A0522D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B4513;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="faceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFACD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="50" fill="#F0F8FF"/>
+  
+  <!-- Head body -->
+  <ellipse cx="50" cy="58" rx="36" ry="40" fill="url(#cowBodyGradient)" filter="url(#shadow)"/>
+  
+  <!-- White face patch with gradient -->
+  <ellipse cx="50" cy="60" rx="27" ry="32" fill="url(#faceGradient)"/>
+  
+  <!-- Brown spots on face -->
+  <ellipse cx="32" cy="48" rx="9" ry="11" fill="#8B4513" opacity="0.75"/>
+  <ellipse cx="68" cy="48" rx="9" ry="11" fill="#8B4513" opacity="0.75"/>
+  <circle cx="50" cy="78" r="5" fill="#8B4513" opacity="0.6"/>
+  
+  <!-- Horns - curved and refined - THICK -->
+  <path d="M 28 30 Q 18 18 15 5" fill="none" stroke="#3C3C3C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 72 30 Q 82 18 85 5" fill="none" stroke="#3C3C3C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Horn inner highlights -->
+  <path d="M 28 30 Q 18 18 15 5" fill="none" stroke="#5C5C5C" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 72 30 Q 82 18 85 5" fill="none" stroke="#5C5C5C" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  
+  <!-- Ears -->
+  <ellipse cx="18" cy="42" rx="9" ry="14" fill="url(#cowBodyGradient)"/>
+  <ellipse cx="82" cy="42" rx="9" ry="14" fill="url(#cowBodyGradient)"/>
+  <ellipse cx="18" cy="42" rx="5" ry="9" fill="#FFB6C1" opacity="0.85"/>
+  <ellipse cx="82" cy="42" rx="5" ry="9" fill="#FFB6C1" opacity="0.85"/>
+  
+  <!-- Eyes - large and expressive -->
+  <circle cx="37" cy="50" r="6" fill="#1a1a1a"/>
+  <circle cx="63" cy="50" r="6" fill="#1a1a1a"/>
+  <circle cx="39" cy="47" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="65" cy="47" r="2.5" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="37" cy="52" r="1.5" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="63" cy="52" r="1.5" fill="#FFFFFF" opacity="0.4"/>
+  
+  <!-- Snout - enhanced -->
+  <ellipse cx="50" cy="70" rx="15" ry="12" fill="#FFD4E5"/>
+  <ellipse cx="50" cy="70" rx="15" ry="12" fill="none" stroke="#E6A8C3" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- Nostrils -->
+  <ellipse cx="44" cy="70" rx="3" ry="3.5" fill="#4A4A4A"/>
+  <ellipse cx="56" cy="70" rx="3" ry="3.5" fill="#4A4A4A"/>
+  
+  <!-- Mouth line -->
+  <path d="M 50 70 L 50 76" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Smile curves -->
+  <path d="M 45 74 Q 50 76 55 74" fill="none" stroke="#E6A8C3" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Face highlights/shine -->
+  <ellipse cx="30" cy="38" rx="7" ry="9" fill="#FFFFFF" opacity="0.6"/>
+  <ellipse cx="35" cy="72" rx="4" ry="5" fill="#FFFFFF" opacity="0.4"/>
+  
+  <!-- Subtle shadowing on face -->
+  <ellipse cx="50" cy="58" rx="26" ry="30" fill="none" stroke="#D4A76A" stroke-width="1" opacity="0.2"/>
+</svg>

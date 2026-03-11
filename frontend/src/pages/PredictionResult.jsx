@@ -2,32 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle, Download, Activity, ShieldCheck, Database, Calendar, X, Droplets, Cloud, Heart, Clock, Leaf } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 import api from '../api/axios';
 import { useUI } from '../context/UIContext';
-import { breedInfo } from '../data/breedInfo';
 
 const PredictionResult = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n: i18nObj } = useTranslation();
     const { addToast } = useUI();
 
     const result = location.state?.result;
     const preview = location.state?.preview;
     const [isDownloading, setIsDownloading] = useState(false);
     const [showBreedInfo, setShowBreedInfo] = useState(false);
+    const [breedDetails, setBreedDetails] = useState(null);
+
+    // Get breed details from translations with language nesting
+    const getBreedDetails = () => {
+        const currentLang = i18n.language;
+        // Access the translation resources for current language
+        const resource = i18n.getResourceBundle(currentLang, 'translation');
+        if (resource && resource.breedDetails && result?.breed) {
+            const breedKey = result.breed;
+            const details = resource.breedDetails[breedKey];
+            if (details && details[currentLang]) {
+                return details[currentLang];
+            }
+        }
+        return null;
+    };
 
     useEffect(() => {
         if (!result || !preview) {
             navigate('/dashboard');
         }
-        // Debug log to check breed name
         if (result) {
+            const details = getBreedDetails();
+            setBreedDetails(details);
             console.log('Result breed:', result.breed);
-            console.log('BreedInfo keys:', Object.keys(breedInfo));
-            console.log('Breed exists in breedInfo:', !!breedInfo[result.breed]);
+            console.log('Current language:', i18n.language);
+            console.log('Breed details loaded:', !!details);
         }
-    }, [result, preview, navigate]);
+    }, [result, preview, navigate, i18nObj.language]);
 
     if (!result || !preview) return null;
 
@@ -253,7 +270,7 @@ const PredictionResult = () => {
 
                         {/* Modal Content */}
                         <div className="p-8 space-y-6 max-h-[calc(100vh-250px)] overflow-y-auto">
-                            {breedInfo[result.breed] ? (
+                            {breedDetails ? (
                                 <>
                                     {/* Milk Yield */}
                                     <div className="rounded-2xl p-6 border border-primary/20 bg-gradient-to-br from-primary/8 to-transparent">
@@ -263,7 +280,7 @@ const PredictionResult = () => {
                                             </div>
                                             <div className="flex-1">
                                             <h3 className="text-sm font-black text-text-muted uppercase tracking-widest mb-2">{t('result.breedInfo.milkYield')}</h3>
-                                                <p className="text-lg font-bold text-text-main">{breedInfo[result.breed].milkYield}</p>
+                                                <p className="text-lg font-bold text-text-main">{breedDetails.milkYield}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +293,7 @@ const PredictionResult = () => {
                                             </div>
                                             <div className="flex-1">
                                             <h3 className="text-sm font-black text-text-muted uppercase tracking-widest mb-2">{t('result.breedInfo.favourableConditions')}</h3>
-                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedInfo[result.breed].favourableConditions}</p>
+                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedDetails.favourableConditions}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +306,7 @@ const PredictionResult = () => {
                                             </div>
                                             <div className="flex-1">
                                             <h3 className="text-sm font-black text-text-muted uppercase tracking-widest mb-2">{t('result.breedInfo.diseases')}</h3>
-                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedInfo[result.breed].diseases}</p>
+                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedDetails.diseases}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -302,7 +319,7 @@ const PredictionResult = () => {
                                             </div>
                                             <div className="flex-1">
                                             <h3 className="text-sm font-black text-text-muted uppercase tracking-widest mb-2">{t('result.breedInfo.avgLifespan')}</h3>
-                                                <p className="text-lg font-bold text-text-main">{breedInfo[result.breed].avgLifespan}</p>
+                                                <p className="text-lg font-bold text-text-main">{breedDetails.avgLifespan}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -315,14 +332,14 @@ const PredictionResult = () => {
                                             </div>
                                             <div className="flex-1">
                                             <h3 className="text-sm font-black text-text-muted uppercase tracking-widest mb-2">{t('result.breedInfo.fodderInfo')}</h3>
-                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedInfo[result.breed].fodderInfo}</p>
+                                                <p className="text-sm font-medium text-text-main leading-relaxed">{breedDetails.fodderInfo}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </>
                             ) : (
                                 <div className="p-8 flex flex-col items-center justify-center min-h-[300px]">
-                                    <p className="text-text-muted font-bold">Breed: {result.breed}</p>
+                                    <p className="text-text-muted font-bold">Breed: {result?.breed}</p>
                                     <p className="text-text-muted font-bold text-xs mt-2">{t('result.noInfoAvailable')}</p>
                                 </div>
                             )}

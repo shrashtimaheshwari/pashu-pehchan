@@ -22,7 +22,564 @@
         "Red Sindhi": "Red Sindhi",
         "Tharparkar": "Tharparkar",
         "Murrah": "Murrah",
-        "Jafarabadi": "Jafarabadi"
+        "Jaffrabadi": "Jaffrabadi",
+        "Mehsana": "Mehsana",
+        "Nili_Ravi": "Nili Ravi",
+        "Alambadi": "Alambadi",
+        "Himachali Pahari": "Himachali Pahari",
+        "Kangayam": "Kangayam",
+        "Kasargod": "Kasargod",
+        "Kenkatha": "Kenkatha",
+        "Umblachery": "Umblachery",
+        "Khariar": "Khariar",
+        "Kosali": "Kosali",
+        "motu": "Motu",
+        "Nimari": "Nimari",
+        "Red kandhari": "Red Kandhari",
+        "Vechur": "Vechur",
+        "Bargur": "Bargur",
+        "Guernsey": "Guernsey",
+        "Poda Thirupu": "Poda Thirupu",
+        "Rathi": "Rathi",
+        "Dangi": "Dangi",
+        "ponwar": "Ponwar",
+        "siri": "Siri",
+        "Amritmahal": "Amritmahal",
+        "dagri": "Dagri",
+        "gangatari": "Gangatari",
+        "Hariana": "Hariana",
+        "nagori": "Nagori",
+        "ongole": "Ongole"
+    },
+    "breedDetails": {
+        "Gir": {
+            "en": {
+                "milkYield": "10-16 liters per day",
+                "favourableConditions": "Hot and humid climates, semi-arid regions. Originated in Gir Forest of Gujarat. Requires good grazing land and adequate water supply.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Tuberculosis",
+                "avgLifespan": "15-18 years",
+                "fodderInfo": "Grass, legumes, supplemented with concentrate feed. Requires 6-8 kg dry matter per day. Easy to adapt to local fodder."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 10-16 लीटर",
+                "favourableConditions": "गर्म और आर्द्र जलवायु, अर्ध-शुष्क क्षेत्र। गुजरात के गिर वन से उत्पन्न। अच्छी चराई भूमि और पर्याप्त जल आपूर्ति की आवश्यकता है।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, तपेदिक",
+                "avgLifespan": "15-18 वर्ष",
+                "fodderInfo": "घास, दलहनी फसलें, केंद्रित चारे से पूरक। प्रति दिन 6-8 किग्रा सूखा पदार्थ की आवश्यकता है। स्थानीय चारे के अनुकूल होने में आसान।"
+            }
+        },
+        "Sahiwal": {
+            "en": {
+                "milkYield": "8-14 liters per day",
+                "favourableConditions": "Hot and dry climates, semi-arid and sub-humid regions. Originated in Punjab region. Heat and drought tolerant.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Can thrive on poor-quality fodder. Requires 5-7 kg dry matter per day. Excellent foragers, adaptable to local vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 8-14 लीटर",
+                "favourableConditions": "गर्म और शुष्क जलवायु, अर्ध-शुष्क और उप-आर्द्र क्षेत्र। पंजाब क्षेत्र से उत्पन्न। तापमान और सूखा सहनशील।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "निम्न गुणवत्ता के चारे पर भी पनप सकता है। प्रति दिन 5-7 किग्रा सूखा पदार्थ की आवश्यकता है। उत्कृष्ट चारागाह खोजी, स्थानीय वनस्पति के अनुकूल।"
+            }
+        },
+        "Red Sindhi": {
+            "en": {
+                "milkYield": "6-10 liters per day",
+                "favourableConditions": "Hot and humid to semi-arid climates. Originated in Sindhi region of Pakistan. Climate tolerant and disease resistant.",
+                "diseases": "Mastitis, Infertility, Foot and mouth disease, Theileriosis, Brucellosis",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Moderate fodder requirement of 4-6 kg dry matter per day. Produces good milk on average quality feed."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 6-10 लीटर",
+                "favourableConditions": "गर्म और आर्द्र से अर्ध-शुष्क जलवायु। पाकिस्तान के सिंधी क्षेत्र से उत्पन्न। जलवायु सहनशील और रोग प्रतिरोधी।",
+                "diseases": "स्तनशोथ, बांझपन, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, ब्रूसेलोसिस",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "औसत गुणवत्ता के चारे पर 4-6 किग्रा सूखा पदार्थ की आवश्यकता है। अच्छी दुग्ध उत्पादकता।"
+            }
+        },
+        "Tharparkar": {
+            "en": {
+                "milkYield": "7-12 liters per day",
+                "favourableConditions": "Semi-arid desert climate, low rainfall areas. Originated in Thar Desert. Excellent heat and drought tolerance.",
+                "diseases": "Mastitis, Anemia, Infertility, Foot and mouth disease, Black quarter",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Highly adapted to arid regions. Requires 4-6 kg dry matter per day. Can utilize low-quality fodder effectively."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 7-12 लीटर",
+                "favourableConditions": "अर्ध-शुष्क रेगिस्तानी जलवायु, कम वर्षा वाले क्षेत्र। थार रेगिस्तान से उत्पन्न। उत्कृष्ट गर्म और सूखा सहनशीलता।",
+                "diseases": "स्तनशोथ, अरक्तता, बांझपन, पशुओं का खुर और मुँह रोग, काली क्वार्टर",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "शुष्क क्षेत्रों के लिए अत्यधिक अनुकूलित। प्रति दिन 4-6 किग्रा सूखा पदार्थ की आवश्यकता है। निम्न गुणवत्ता के चारे का प्रभावी उपयोग कर सकते हैं।"
+            }
+        },
+        "Murrah": {
+            "en": {
+                "milkYield": "12-16 liters per day (Buffalo)",
+                "favourableConditions": "Requires water bodies, marshy areas, tropical and subtropical climates. Excellent milk producer.",
+                "diseases": "Mastitis, Foot and mouth disease, Brucellosis, Tuberculosis, Infertility",
+                "avgLifespan": "15-18 years",
+                "fodderInfo": "Green fodder requirement 6-8 kg per day. Prefers rice straw, water hyacinth, and other aquatic vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 12-16 लीटर (भैंस)",
+                "favourableConditions": "जल निकाय, दलदली क्षेत्र, उष्णकटिबंधीय और उप-उष्णकटिबंधीय जलवायु की आवश्यकता है। उत्कृष्ट दुग्ध उत्पादक।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, ब्रूसेलोसिस, तपेदिक, बांझपन",
+                "avgLifespan": "15-18 वर्ष",
+                "fodderInfo": "प्रति दिन 6-8 किग्रा हरे चारे की आवश्यकता है। धान की पुआल, जलकुंभी और अन्य जलीय वनस्पति को पसंद करते हैं।"
+            }
+        },
+        "Jaffrabadi": {
+            "en": {
+                "milkYield": "10-14 liters per day (Buffalo)",
+                "favourableConditions": "Hot and humid climates with water bodies nearby. Requires marshy terrain. Good meat and milk producer.",
+                "diseases": "Mastitis, Foot and mouth disease, Brucellosis, Tuberculosis, Theileriosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 6-8 kg dry matter per day, preferable with green fodder. Excellent water foragers, suited for wetland areas."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 10-14 लीटर (भैंस)",
+                "favourableConditions": "पास में जल निकाय के साथ गर्म और आर्द्र जलवायु। दलदली इलाके की आवश्यकता है। अच्छा मांस और दुग्ध उत्पादक।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, ब्रूसेलोसिस, तपेदिक, थेइलेरिओसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 6-8 किग्रा सूखा पदार्थ की आवश्यकता है, हरे चारे के साथ बेहतर। उत्कृष्ट जल चारागाह खोजी, आर्द्रभूमि क्षेत्रों के लिए अनुकूल।"
+            }
+        },
+        "Mehsana": {
+            "en": {
+                "milkYield": "10-16 liters per day (Buffalo)",
+                "favourableConditions": "Hot and humid climates, marshy areas. Originated in Gujarat. Good adaptation to tropical conditions.",
+                "diseases": "Mastitis, Foot and mouth disease, Brucellosis, Tuberculosis, Theileriosis",
+                "avgLifespan": "14-16 years",
+                "fodderInfo": "Requires 6-7 kg dry matter per day. Prefers green fodder and aquatic vegetation. Excellent milk producer."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 10-16 लीटर (भैंस)",
+                "favourableConditions": "गर्म और आर्द्र जलवायु, दलदली क्षेत्र। गुजरात से उत्पन्न। उष्णकटिबंधीय परिस्थितियों के लिए अच्छा अनुकूलन।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, ब्रूसेलोसिस, तपेदिक, थेइलेरिओसिस",
+                "avgLifespan": "14-16 वर्ष",
+                "fodderInfo": "प्रति दिन 6-7 किग्रा सूखा पदार्थ की आवश्यकता है। हरे चारे और जलीय वनस्पति को पसंद करते हैं। उत्कृष्ट दुग्ध उत्पादक।"
+            }
+        },
+        "Nili_Ravi": {
+            "en": {
+                "milkYield": "14-18 liters per day (Buffalo)",
+                "favourableConditions": "Hot and humid climates with water sources. Originated in Punjab region. Excellent dairy breed with premium milk fat.",
+                "diseases": "Mastitis, Brucellosis, Tuberculosis, Foot and mouth disease, Infertility",
+                "avgLifespan": "16-18 years",
+                "fodderInfo": "Requires 6-8 kg dry matter per day. Prefers green fodder and water hyacinth. High milk fat content."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 14-18 लीटर (भैंस)",
+                "favourableConditions": "जल स्रोतों के साथ गर्म और आर्द्र जलवायु। पंजाब क्षेत्र से उत्पन्न। प्रीमियम दूध वसा वाली उत्कृष्ट डेयरी नस्ल।",
+                "diseases": "स्तनशोथ, ब्रूसेलोसिस, तपेदिक, पशुओं का खुर और मुँह रोग, बांझपन",
+                "avgLifespan": "16-18 वर्ष",
+                "fodderInfo": "प्रति दिन 6-8 किग्रा सूखा पदार्थ की आवश्यकता है। हरे चारे और जलकुंभी को पसंद करते हैं। उच्च दूध वसा सामग्री।"
+            }
+        },
+        "Alambadi": {
+            "en": {
+                "milkYield": "2-4 liters per day (Dual purpose)",
+                "favourableConditions": "Hot and humid climates. Originated in Alambadi region of Tamil Nadu. Good for meat and draught purposes.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Brucellosis, Anemia",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Moderate fodder requirements, 4-5 kg dry matter per day. Adaptable to local climate and vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 2-4 लीटर (दोहरा उद्देश्य)",
+                "favourableConditions": "गर्म और आर्द्र जलवायु। तमिलनाडु के अलंबादी क्षेत्र से उत्पन्न। मांस और कृषि कार्यों के लिए उपयुक्त।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, ब्रूसेलोसिस, अरक्तता",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "औसत चारा आवश्यकता, प्रति दिन 4-5 किग्रा सूखा पदार्थ। स्थानीय जलवायु और वनस्पति के अनुकूल।"
+            }
+        },
+        "Himachali Pahari": {
+            "en": {
+                "milkYield": "4-6 liters per day",
+                "favourableConditions": "Cold and hilly terrains of Himachal Pradesh. Excellent adaptation to mountainous regions and steep slopes.",
+                "diseases": "Foot and mouth disease, Mastitis, Pneumonia, Tuberculosis",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Requires 3-4 kg dry matter per day. Excellent foragers on mountainous grazing. Can survive on sparse vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-6 लीटर",
+                "favourableConditions": "हिमाचल प्रदेश की ठंडी और पहाड़ी भूमि। पहाड़ी क्षेत्रों और खड़ी ढलानों के लिए उत्कृष्ट अनुकूलन।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, निमोनिया, तपेदिक",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "प्रति दिन 3-4 किग्रा सूखा पदार्थ की आवश्यकता है। पहाड़ी चराई पर उत्कृष्ट चारागाह खोजी। विरल वनस्पति पर जीवित रह सकते हैं।"
+            }
+        },
+        "Kangayam": {
+            "en": {
+                "milkYield": "3-5 liters per day (Draught)",
+                "favourableConditions": "Semi-arid regions of Tamil Nadu. Excellent draught and meat breed. Heat and drought tolerant.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Can thrive on poor quality fodder. Excellent for agricultural work."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर (कृषि कार्य)",
+                "favourableConditions": "तमिलनाडु के अर्ध-शुष्क क्षेत्र। उत्कृष्ट कृषि और मांस नस्ल। तापमान और सूखा सहनशील।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। निम्न गुणवत्ता के चारे पर भी पनप सकते हैं। कृषि कार्यों के लिए उत्कृष्ट।"
+            }
+        },
+        "Kasargod": {
+            "en": {
+                "milkYield": "4-6 liters per day",
+                "favourableConditions": "Hot and humid climates of Kerala and coastal regions. Excellent adaptation to tropical conditions.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Brucellosis, Trypanosomiasis",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Moderate fodder requirement of 4-5 kg dry matter per day. Adaptable to coastal vegetation and coconut fodder."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-6 लीटर",
+                "favourableConditions": "केरल और तटीय क्षेत्रों की गर्म और आर्द्र जलवायु। उष्णकटिबंधीय परिस्थितियों के लिए उत्कृष्ट अनुकूलन।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, ब्रूसेलोसिस, ट्रिपैनोसोमिएसिस",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की औसत आवश्यकता है। तटीय वनस्पति और नारियल चारे के अनुकूल।"
+            }
+        },
+        "Kenkatha": {
+            "en": {
+                "milkYield": "5-8 liters per day",
+                "favourableConditions": "Originated in West Bengal and Odisha. Adapted to humid subtropical climates with high humidity and rainfall.",
+                "diseases": "Mastitis, Foot and mouth disease, Brucellosis, Tuberculosis, Infertility",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Good adaptation to moist climates and river valley regions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 5-8 लीटर",
+                "favourableConditions": "पश्चिम बंगाल और ओडिशा में उत्पन्न। उच्च आर्द्रता और वर्षा के साथ नम उप-उष्णकटिबंधीय जलवायु के अनुकूल।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, ब्रूसेलोसिस, तपेदिक, बांझपन",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। नम जलवायु और नदी घाटी क्षेत्रों के लिए अच्छा अनुकूलन।"
+            }
+        },
+        "Umblachery": {
+            "en": {
+                "milkYield": "3-5 liters per day",
+                "favourableConditions": "Hot and humid climates of Tamil Nadu. Primarily used for meat production. Hardy and disease resistant.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Good meat quality. Adaptable to local fodder."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर",
+                "favourableConditions": "तमिलनाडु की गर्म और आर्द्र जलवायु। मुख्य रूप से मांस उत्पादन के लिए उपयोग किया जाता है। कठोर और रोग प्रतिरोधी।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। अच्छी मांस गुणवत्ता। स्थानीय चारे के अनुकूल।"
+            }
+        },
+        "Khariar": {
+            "en": {
+                "milkYield": "4-7 liters per day",
+                "favourableConditions": "Hot and humid climates of Odisha. Good all-purpose breed with decent milk production and draught ability.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Tuberculosis",
+                "avgLifespan": "13-16 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Adaptable to local climate and feed resources."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-7 लीटर",
+                "favourableConditions": "ओडिशा की गर्म और आर्द्र जलवायु। अच्छी सर्वउद्देश्यीय नस्ल, अच्छी दुग्ध उत्पादन और कृषि क्षमता के साथ।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, तपेदिक",
+                "avgLifespan": "13-16 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। स्थानीय जलवायु और चारा संसाधनों के अनुकूल।"
+            }
+        },
+        "Kosali": {
+            "en": {
+                "milkYield": "3-6 liters per day",
+                "favourableConditions": "Hot and humid climates of Odisha and Eastern India. Multi-purpose breed suitable for dairy and draught.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Infertility",
+                "avgLifespan": "13-16 years",
+                "fodderInfo": "Moderate fodder requirement of 4-5 kg dry matter per day. Good on local vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-6 लीटर",
+                "favourableConditions": "ओडिशा और पूर्वी भारत की गर्म और आर्द्र जलवायु। डेयरी और कृषि कार्यों के लिए उपयुक्त बहु-उद्देश्यीय नस्ल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, बांझपन",
+                "avgLifespan": "13-16 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की औसत आवश्यकता है। स्थानीय वनस्पति पर अच्छा।"
+            }
+        },
+        "motu": {
+            "en": {
+                "milkYield": "3-5 liters per day",
+                "favourableConditions": "Hot and humid tropical climates. Originated in South India. Good for meat production.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Trypanosomiasis",
+                "avgLifespan": "11-13 years",
+                "fodderInfo": "Requires 3-4 kg dry matter per day. Excellent foragers. Hardy and adaptable to tropical conditions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर",
+                "favourableConditions": "गर्म और आर्द्र उष्णकटिबंधीय जलवायु। दक्षिण भारत से उत्पन्न। मांस उत्पादन के लिए अच्छा।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, ट्रिपैनोसोमिएसिस",
+                "avgLifespan": "11-13 वर्ष",
+                "fodderInfo": "प्रति दिन 3-4 किग्रा सूखा पदार्थ की आवश्यकता है। उत्कृष्ट चारागाह खोजी। कठोर और उष्णकटिबंधीय परिस्थितियों के लिए अनुकूल।"
+            }
+        },
+        "Nimari": {
+            "en": {
+                "milkYield": "4-8 liters per day",
+                "favourableConditions": "Hot and humid climates of Central India. Good dual-purpose breed for milk and draught.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Anemia",
+                "avgLifespan": "13-15 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Adaptable to mixed crop-livestock farming systems."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-8 लीटर",
+                "favourableConditions": "मध्य भारत की गर्म और आर्द्र जलवायु। दुग्ध और कृषि कार्यों के लिए अच्छी दोहरी-उद्देश्य नस्ल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, अरक्तता",
+                "avgLifespan": "13-15 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। मिश्रित फसल-पशुपालन कृषि प्रणालियों के लिए अनुकूल।"
+            }
+        },
+        "Red kandhari": {
+            "en": {
+                "milkYield": "3-5 liters per day",
+                "favourableConditions": "Hot and dry climates of Karnataka. Hardy and disease resistant. Good for meat production.",
+                "diseases": "Foot and mouth disease, Black quarter, Mastitis, Brucellosis, Theileriosis",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Requires 3-4 kg dry matter per day. Excellent foragers on range lands and can survive on sparse vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर",
+                "favourableConditions": "कर्नाटक की गर्म और शुष्क जलवायु। कठोर और रोग प्रतिरोधी। मांस उत्पादन के लिए उपयुक्त।",
+                "diseases": "पशुओं का खुर और मुँह रोग, काली क्वार्टर, स्तनशोथ, ब्रूसेलोसिस, थेइलेरिओसिस",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "प्रति दिन 3-4 किग्रा सूखा पदार्थ की आवश्यकता है। चरागाह भूमि पर उत्कृष्ट चारागाह खोजी और विरल वनस्पति पर जीवित रह सकते हैं।"
+            }
+        },
+        "Vechur": {
+            "en": {
+                "milkYield": "5-8 liters per day",
+                "favourableConditions": "Hot and humid climates of Kerala. Rare dwarf breed. Excellent for small-scale farming and homesteads.",
+                "diseases": "Foot and mouth disease, Mastitis, Infertility, Brucellosis, Theileriosis",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Small breed requiring only 2-3 kg dry matter per day. Very efficient milk producers for their size."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 5-8 लीटर",
+                "favourableConditions": "केरल की गर्म और आर्द्र जलवायु। दुर्लभ बौनी नस्ल। छोटे पैमाने की कृषि और घरेलू पशुओं के लिए उत्कृष्ट।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, बांझपन, ब्रूसेलोसिस, थेइलेरिओसिस",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "प्रति दिन केवल 2-3 किग्रा सूखा पदार्थ की आवश्यकता वाली छोटी नस्ल। अपने आकार के हिसाब से बहुत कुशल दुग्ध उत्पादक।"
+            }
+        },
+        "Bargur": {
+            "en": {
+                "milkYield": "4-7 liters per day",
+                "favourableConditions": "Hot and semi-arid climates of Tamil Nadu. Good for both meat and draught purposes.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "13-16 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Hardy and adaptable to varied agro-climatic conditions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-7 लीटर",
+                "favourableConditions": "तमिलनाडु की गर्म और अर्ध-शुष्क जलवायु। मांस और कृषि दोनों उद्देश्यों के लिए उपयुक्त।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "13-16 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। कठोर और विभिन्न कृषि-जलवायु परिस्थितियों के लिए अनुकूल।"
+            }
+        },
+        "Guernsey": {
+            "en": {
+                "milkYield": "16-19 liters per day",
+                "favourableConditions": "Originated in UK / Guernsey. Best suited for temperate climates with good rainfall and cool temperatures.",
+                "diseases": "Mastitis, Foot and mouth disease, Reproductive disorders, Tuberculosis",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Requires 7-9 kg dry matter per day with quality concentrate. Prefers managed grazing and good quality hay."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 16-19 लीटर",
+                "favourableConditions": "यूके / गर्नसे से उत्पन्न। अच्छी वर्षा और ठंडे तापमान वाली समशीतोष्ण जलवायु के लिए सबसे उपयुक्त।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, प्रजनन विकार, तपेदिक",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "गुणवत्ता वाले केंद्रित चारे के साथ प्रति दिन 7-9 किग्रा सूखा पदार्थ की आवश्यकता है। प्रबंधित चराई और अच्छी गुणवत्ता की सूखी घास को पसंद करते हैं।"
+            }
+        },
+        "Poda Thirupu": {
+            "en": {
+                "milkYield": "3-5 liters per day",
+                "favourableConditions": "Hot and humid climates of Tamil Nadu. Primarily beef breed with good meat quality.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Black quarter",
+                "avgLifespan": "11-13 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Good meat production with efficient feed conversion."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर",
+                "favourableConditions": "तमिलनाडु की गर्म और आर्द्र जलवायु। मुख्य रूप से अच्छी मांस गुणवत्ता वाली बीफ नस्ल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, काली क्वार्टर",
+                "avgLifespan": "11-13 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। कुशल चारा रुपांतरण के साथ अच्छी मांस उत्पादकता।"
+            }
+        },
+        "Rathi": {
+            "en": {
+                "milkYield": "5-10 liters per day",
+                "favourableConditions": "Semi-arid and drought-prone regions of Rajasthan. Heat and drought tolerant with good milk production.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Excellent foragers. Can survive on poor quality fodder."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 5-10 लीटर",
+                "favourableConditions": "राजस्थान के अर्ध-शुष्क और सूखा-प्रवण क्षेत्र। अच्छी दुग्ध उत्पादन क्षमता के साथ गर्मी और सूखा सहनशील।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। उत्कृष्ट चारागाह खोजी। निम्न गुणवत्ता के चारे पर जीवित रह सकते हैं।"
+            }
+        },
+        "Dangi": {
+            "en": {
+                "milkYield": "3-5 liters per day",
+                "favourableConditions": "Originated in dry regions of Gujarat. Excellent for beef production and draught work.",
+                "diseases": "Foot and mouth disease, Mastitis, Black quarter, Theileriosis, Brucellosis",
+                "avgLifespan": "12-15 years",
+                "fodderInfo": "Moderate requirements of 3-4 kg dry matter per day. Hardy and adaptable to adverse conditions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर",
+                "favourableConditions": "गुजरात के शुष्क क्षेत्रों से उत्पन्न। बीफ उत्पादन और कृषि कार्यों के लिए उत्कृष्ट।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, काली क्वार्टर, थेइलेरिओसिस, ब्रूसेलोसिस",
+                "avgLifespan": "12-15 वर्ष",
+                "fodderInfo": "प्रति दिन 3-4 किग्रा सूखा पदार्थ की औसत आवश्यकता है। कठोर और प्रतिकूल परिस्थितियों के लिए अनुकूल।"
+            }
+        },
+        "ponwar": {
+            "en": {
+                "milkYield": "8-12 liters per day",
+                "favourableConditions": "Adapted to Indian subcontinent climates. Moderate heat and disease tolerance. Originated in Central India.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Brucellosis, Infertility",
+                "avgLifespan": "14-16 years",
+                "fodderInfo": "Moderate fodder requirements. Requires 5-7 kg dry matter per day. Adaptable to local vegetation."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 8-12 लीटर",
+                "favourableConditions": "भारतीय उपमहाद्वीप की जलवायु के अनुकूल। मध्यम गर्मी और रोग सहनशीलता। मध्य भारत से उत्पन्न।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, ब्रूसेलोसिस, बांझपन",
+                "avgLifespan": "14-16 वर्ष",
+                "fodderInfo": "औसत चारा आवश्यकता। प्रति दिन 5-7 किग्रा सूखा पदार्थ की आवश्यकता है। स्थानीय वनस्पति के अनुकूल।"
+            }
+        },
+        "siri": {
+            "en": {
+                "milkYield": "4-6 liters per day",
+                "favourableConditions": "Hot and humid climates with high rainfall. Originated in Coorg region of Karnataka. Good foragers.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Brucellosis, Infertility",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Adaptable to hilly and rainfall-rich regions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-6 लीटर",
+                "favourableConditions": "उच्च वर्षा के साथ गर्म और आर्द्र जलवायु। कर्नाटक के कूर्ग क्षेत्र से उत्पन्न। अच्छे चारागाह खोजी।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस, बांझपन",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। पहाड़ी और वर्षा-समृद्ध क्षेत्रों के लिए अनुकूल।"
+            }
+        },
+        "Amritmahal": {
+            "en": {
+                "milkYield": "2-4 liters per day (Draught)",
+                "favourableConditions": "Hot and semi-arid regions of Karnataka. Primarily used for draught and meat purposes.",
+                "diseases": "Foot and mouth disease, Black quarter, Mastitis, Theileriosis, Brucellosis",
+                "avgLifespan": "13-16 years",
+                "fodderInfo": "Requires 3-4 kg dry matter per day. Excellent draught animals with good strength and stamina."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 2-4 लीटर (कृषि कार्य)",
+                "favourableConditions": "कर्नाटक के गर्म और अर्ध-शुष्क क्षेत्र। मुख्य रूप से कृषि और मांस उद्देश्यों के लिए उपयोग किया जाता है।",
+                "diseases": "पशुओं का खुर और मुँह रोग, काली क्वार्टर, स्तनशोथ, थेइलेरिओसिस, ब्रूसेलोसिस",
+                "avgLifespan": "13-16 वर्ष",
+                "fodderInfo": "प्रति दिन 3-4 किग्रा सूखा पदार्थ की आवश्यकता है। अच्छी शक्ति और सहनशक्ति वाले उत्कृष्ट कृषि कार्य पशु।"
+            }
+        },
+        "dagri": {
+            "en": {
+                "milkYield": "4-6 liters per day",
+                "favourableConditions": "Hot and humid climates of North Eastern India. Suited for forest and hilly regions.",
+                "diseases": "Foot and mouth disease, Mastitis, Pneumonia, Brucellosis, Infertility",
+                "avgLifespan": "12-14 years",
+                "fodderInfo": "Moderate requirements of 4-5 kg dry matter per day. Good foragers in forest regions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-6 लीटर",
+                "favourableConditions": "उत्तर-पूर्वी भारत की गर्म और आर्द्र जलवायु। वन और पहाड़ी क्षेत्रों के लिए अनुकूल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, निमोनिया, ब्रूसेलोसिस, बांझपन",
+                "avgLifespan": "12-14 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की औसत आवश्यकता है। वन क्षेत्रों में अच्छे चारागाह खोजी।"
+            }
+        },
+        "gangatari": {
+            "en": {
+                "milkYield": "6-9 liters per day",
+                "favourableConditions": "Hot and humid climates of Eastern India near Ganges region. Multi-purpose breed.",
+                "diseases": "Foot and mouth disease, Mastitis, Brucellosis, Tuberculosis, Theileriosis",
+                "avgLifespan": "13-15 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Good adaptation to river valley regions and humid climate."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 6-9 लीटर",
+                "favourableConditions": "गंगा क्षेत्र के पास पूर्वी भारत की गर्म और आर्द्र जलवायु। बहु-उद्देश्यीय नस्ल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, ब्रूसेलोसिस, तपेदिक, थेइलेरिओसिस",
+                "avgLifespan": "13-15 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। नदी घाटी क्षेत्रों और आर्द्र जलवायु के लिए अच्छा अनुकूलन।"
+            }
+        },
+        "Hariana": {
+            "en": {
+                "milkYield": "6-10 liters per day",
+                "favourableConditions": "Hot and semi-arid climates of Haryana. Good dual-purpose breed for milk and draught.",
+                "diseases": "Mastitis, Foot and mouth disease, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Hardy and adaptable to hot weather conditions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 6-10 लीटर",
+                "favourableConditions": "हरियाणा की गर्म और अर्ध-शुष्क जलवायु। दुग्ध और कृषि कार्यों के लिए अच्छी दोहरी-उद्देश्य नस्ल।",
+                "diseases": "स्तनशोथ, पशुओं का खुर और मुँह रोग, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। कठोर और गर्म मौसम की परिस्थितियों के लिए अनुकूल।"
+            }
+        },
+        "nagori": {
+            "en": {
+                "milkYield": "3-5 liters per day (Draught)",
+                "favourableConditions": "Hot and arid regions of Rajasthan. Excellent draught breed with strong physique for heavy work.",
+                "diseases": "Foot and mouth disease, Black quarter, Mastitis, Theileriosis, Anemia",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 4-5 kg dry matter per day. Hardy and efficient. Good for agricultural work in arid regions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 3-5 लीटर (कृषि कार्य)",
+                "favourableConditions": "राजस्थान के गर्म और शुष्क क्षेत्र। भारी काम के लिए मजबूत शारीरिक संरचना वाली उत्कृष्ट कृषि नस्ल।",
+                "diseases": "पशुओं का खुर और मुँह रोग, काली क्वार्टर, स्तनशोथ, थेइलेरिओसिस, अरक्तता",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 4-5 किग्रा सूखा पदार्थ की आवश्यकता है। कठोर और कुशल। शुष्क क्षेत्रों में कृषि कार्यों के लिए उपयुक्त।"
+            }
+        },
+        "ongole": {
+            "en": {
+                "milkYield": "4-8 liters per day",
+                "favourableConditions": "Hot and humid to semi-arid climates of Andhra Pradesh. Good meat and draught breed with decent milk.",
+                "diseases": "Foot and mouth disease, Mastitis, Theileriosis, Black quarter, Brucellosis",
+                "avgLifespan": "14-17 years",
+                "fodderInfo": "Requires 5-6 kg dry matter per day. Hardy and adaptable to various agro-climatic conditions."
+            },
+            "hi": {
+                "milkYield": "प्रति दिन 4-8 लीटर",
+                "favourableConditions": "आंध्र प्रदेश की गर्म और आर्द्र से अर्ध-शुष्क जलवायु। अच्छी मांस और कृषि नस्ल, अच्छी दुग्ध उत्पादकता के साथ।",
+                "diseases": "पशुओं का खुर और मुँह रोग, स्तनशोथ, थेइलेरिओसिस, काली क्वार्टर, ब्रूसेलोसिस",
+                "avgLifespan": "14-17 वर्ष",
+                "fodderInfo": "प्रति दिन 5-6 किग्रा सूखा पदार्थ की आवश्यकता है। कठोर और विभिन्न कृषि-जलवायु परिस्थितियों के अनुकूल।"
+            }
+        }
     },
     "dashboard": {
         "headerTitle": "Breed Identification",
