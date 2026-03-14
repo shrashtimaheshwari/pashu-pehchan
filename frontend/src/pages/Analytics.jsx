@@ -148,7 +148,11 @@ const Analytics = () => {
             return (
                 <div className="bg-white p-4 rounded-xl shadow-xl border border-border">
                     <p className="text-xs font-black text-text-muted uppercase tracking-widest mb-1">
-                        {label || payload[0].name}
+                        {t(`breeds.${label || payload[0].name}`, { 
+                            defaultValue: t(`common.days.${label || payload[0].name}`, { 
+                                defaultValue: label || payload[0].name 
+                            }) 
+                        })}
                     </p>
                     <p className="text-lg font-black text-primary">
                         {payload[0].value}
@@ -339,7 +343,12 @@ const Analytics = () => {
 
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
 
-                                        <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                                        <XAxis 
+                                            dataKey="name" 
+                                            axisLine={false} 
+                                            tickLine={false} 
+                                            tickFormatter={(value) => t(`common.days.${value}`, { defaultValue: value })}
+                                        />
 
                                         <YAxis axisLine={false} tickLine={false} />
 
@@ -364,8 +373,11 @@ const Analytics = () => {
                                             dataKey="name"
                                             axisLine={false}
                                             tickLine={false}
+                                            angle={-45}
+                                            textAnchor="end"
+                                            height={100}
                                             tickFormatter={(value) =>
-                                                t(`breeds.${value}`, { defaultValue: value }).substring(0, 6)
+                                                t(`breeds.${value}`, { defaultValue: value })
                                             }
                                         />
 
@@ -425,6 +437,7 @@ const Analytics = () => {
                                             layout="horizontal"
                                             verticalAlign="bottom"
                                             align="center"
+                                            formatter={(value) => t(`breeds.${value}`, { defaultValue: value })}
                                         />
 
                                     </PieChart>

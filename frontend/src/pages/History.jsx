@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Download, Trash2, Loader2, Database, Activity, Calendar, MoreVertical, FileText, ChevronRight, TrendingUp, ShieldCheck, ChevronDown, ArrowUpDown } from 'lucide-react';
+import { Search, Download, Trash2, Loader2, Database, Activity, Calendar, MoreVertical, FileText, ChevronRight, TrendingUp, ShieldCheck, ChevronDown, ArrowUpDown, Globe } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import { useUI } from '../context/UIContext';
@@ -13,6 +13,7 @@ const History = () => {
     const [sortBy, setSortBy] = useState('newest');
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isDeleting, setIsDeleting] = useState(null);
+    const [downloadLangId, setDownloadLangId] = useState(null);
 
     const { addToast } = useUI();
     const { t } = useTranslation();
@@ -53,14 +54,15 @@ const History = () => {
         }
     };
 
-    const handleDownload = async (e, id) => {
-        e.stopPropagation();
+    const handleDownload = async (e, id, lang = 'en') => {
+        e?.stopPropagation();
+        setDownloadLangId(null);
         try {
-            const resp = await api.get(`/predictions/${id}/report`, { responseType: 'blob' });
+            const resp = await api.get(`/predictions/${id}/report?lang=${lang}`, { responseType: 'blob' });
             const url = window.URL.createObjectURL(new Blob([resp.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `report-${id}.pdf`);
+            link.setAttribute('download', `report-${id}-${lang}.pdf`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -71,7 +73,7 @@ const History = () => {
 
     const stats = useMemo(() => {
         const total = scans.length;
-        const highConf = scans.filter(s => s.confidence > 0.9).length;
+        const highConf = scans.filter(s => s.confidence >= 85).length;
         const recent = scans.filter(s => {
             const date = new Date(s.date || s.createdAt);
             const sevenDaysAgo = new Date();
@@ -237,7 +239,7 @@ const History = () => {
                                         />
                                         <div className="absolute top-4 right-4 flex gap-2">
                                             <div className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-2xl shadow-lg flex items-center gap-2">
-                                                <Activity className={`w-4 h-4 ${scan.confidence > 90 ? 'text-green-500' : 'text-secondary'}`} />
+                                                <Activity className={`w-4 h-4 ${scan.confidence >= 85 ? 'text-green-500' : 'text-secondary'}`} />
                                                 <span className="text-sm font-black text-text-main">
                                                     {(scan.confidence).toFixed(2)}%
                                                 </span>
@@ -259,7 +261,7 @@ const History = () => {
                                             </div>
                                             <div className="flex gap-1">
                                                 <button
-                                                    onClick={(e) => handleDownload(e, scanId)}
+                                                    onClick={(e) => { e.stopPropagation(); setDownloadLangId(scanId); }}
                                                     className="p-2.5 text-text-muted hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
                                                     title={t('common.download')}
                                                 >
@@ -288,6 +290,36 @@ const History = () => {
                                 </div>
                             );
                         })}
+                    </div>
+                )}
+
+                {/* Language Selection Modal */}
+                {downloadLangId && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setDownloadLangId(null)}>
+                        <div className="bg-white rounded-[2rem] shadow-2xl p-8 max-w-sm w-full animate-in fade-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
+                                    <Globe className="w-6 h-6 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-black text-text-main">{t('report.chooseLanguage')}</h3>
+                            </div>
+                            <div className="space-y-3">
+                                <button
+                                    onClick={(e) => handleDownload(e, downloadLangId, 'en')}
+                                    className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                                >
+                                    <span className="text-2xl">🇬🇧</span>
+                                    <span className="text-lg font-bold text-text-main group-hover:text-primary transition-colors">{t('report.english')}</span>
+                                </button>
+                                <button
+                                    onClick={(e) => handleDownload(e, downloadLangId, 'hi')}
+                                    className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                                >
+                                    <span className="text-2xl">🇮🇳</span>
+                                    <span className="text-lg font-bold text-text-main group-hover:text-primary transition-colors">{t('report.hindi')}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 )}
             </main>

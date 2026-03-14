@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle, Download, Activity, ShieldCheck, Database, Calendar, X, Droplets, Cloud, Heart, Clock, Leaf } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Info, RotateCcw, AlertTriangle, Download, Activity, ShieldCheck, Database, Calendar, X, Droplets, Cloud, Heart, Clock, Leaf, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import api from '../api/axios';
@@ -17,6 +17,7 @@ const PredictionResult = () => {
     const [isDownloading, setIsDownloading] = useState(false);
     const [showBreedInfo, setShowBreedInfo] = useState(false);
     const [breedDetails, setBreedDetails] = useState(null);
+    const [showLangPicker, setShowLangPicker] = useState(false);
 
     // Get breed details from translations with language nesting
     const getBreedDetails = () => {
@@ -48,17 +49,18 @@ const PredictionResult = () => {
 
     if (!result || !preview) return null;
 
-    const handleDownload = async () => {
+    const handleDownload = async (lang = 'en') => {
         const id = result.id || result._id;
         if (!id) return;
 
+        setShowLangPicker(false);
         setIsDownloading(true);
         try {
-            const resp = await api.get(`/predictions/${id}/report`, { responseType: 'blob' });
+            const resp = await api.get(`/predictions/${id}/report?lang=${lang}`, { responseType: 'blob' });
             const url = window.URL.createObjectURL(new Blob([resp.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `report-${id}.pdf`);
+            link.setAttribute('download', `report-${id}-${lang}.pdf`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -71,13 +73,13 @@ const PredictionResult = () => {
     };
 
     const getConfColor = (score) => {
-        if (score > 90) return 'text-primary';
+        if (score >= 85) return 'text-primary';
         if (score > 70) return 'text-secondary';
         return 'text-red-500';
     };
 
     const getBgColor = (score) => {
-        if (score > 90) return 'bg-primary/5';
+        if (score >= 85) return 'bg-primary/5';
         if (score > 70) return 'bg-secondary/5';
         return 'bg-red-50';
     };
@@ -99,7 +101,7 @@ const PredictionResult = () => {
 
                     <div className="flex gap-3">
                         <button
-                            onClick={handleDownload}
+                            onClick={() => setShowLangPicker(true)}
                             disabled={isDownloading}
                             className="btn-primary px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-primary/20"
                         >
@@ -145,7 +147,9 @@ const PredictionResult = () => {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">{t('result.scanDate')}</p>
-                                        <p className="font-bold text-sm text-text-main">{new Date().toLocaleDateString()}</p>
+                                        <p className="font-bold text-sm text-text-main">
+                                            {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="flex-1 bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center gap-4">
@@ -352,6 +356,36 @@ const PredictionResult = () => {
                                 className="px-8 py-3 rounded-xl font-bold text-primary bg-primary/10 hover:bg-primary/20 transition-all"
                             >
                                 {t('common.cancel')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Language Selection Modal */}
+            {showLangPicker && (
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowLangPicker(false)}>
+                    <div className="bg-white rounded-[2rem] shadow-2xl p-8 max-w-sm w-full animate-in fade-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
+                                <Globe className="w-6 h-6 text-primary" />
+                            </div>
+                            <h3 className="text-xl font-black text-text-main">{t('report.chooseLanguage')}</h3>
+                        </div>
+                        <div className="space-y-3">
+                            <button
+                                onClick={() => handleDownload('en')}
+                                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                            >
+                                <span className="text-L">US</span>
+                                <span className="text-lg font-bold text-text-main group-hover:text-primary transition-colors">{t('report.english')}</span>
+                            </button>
+                            <button
+                                onClick={() => handleDownload('hi')}
+                                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                            >
+                                <span className="text-l">IN</span>
+                                <span className="text-lg font-bold text-text-main group-hover:text-primary transition-colors">{t('report.hindi')}</span>
                             </button>
                         </div>
                     </div>

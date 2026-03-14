@@ -184,10 +184,20 @@ exports.resetPassword = async (req, res) => {
             email,
             resetPasswordCode: code,
             resetPasswordExpire: { $gt: Date.now() }
-        });
+        }).select('+password');
 
         if (!user) {
             return res.status(400).json({ success: false, message: 'Invalid or expired code' });
+        }
+
+        // Check if new password is same as old password
+        const isMatch = await user.matchPassword(password);
+        if (isMatch) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'New password cannot be the same as the old password',
+                errorCode: 'PASSWORD_SAME'
+            });
         }
 
         // Set the new password

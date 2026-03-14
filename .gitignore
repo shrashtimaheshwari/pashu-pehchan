@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Dataset & model files
+backend_model/dataset_final_pp_cropped/
+dataset_final_pp_cropped/
+backend_model/cattle_classifier.keras
+backend_model/yolov8n.pt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Scratch / utility scripts
+fix_breed_names.py
+nb_code.txt
+patch_nb.py
+crop_dataset.py
+train_improved_model.py
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs & output
+*.log
+npm-debug.log*
+backend_model/model_output.txt
+backend_model/tf_output.json
+
+# Build output
+frontend/dist/
+
+# Misc
+envs.txt
+walkthrough.md.resolved
+*.resolved

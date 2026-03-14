@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+
 
 // Load env vars
 dotenv.config();

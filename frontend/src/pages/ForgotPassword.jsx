@@ -79,8 +79,14 @@ const ForgotPassword = () => {
             addToast(t('auth.forgot.alerts.resetSuccess'), 'success');
             navigate('/login');
         } catch (err) {
-            addToast(err.response?.data?.message || t('auth.forgot.alerts.resetError'), 'error');
-            setStep(1); // Reset flow
+            const errorCode = err.response?.data?.errorCode;
+            const errorMessage = errorCode === 'PASSWORD_SAME' 
+                ? t('auth.forgot.alerts.passwordSame') 
+                : (err.response?.data?.message || t('auth.forgot.alerts.resetError'));
+            addToast(errorMessage, 'error');
+            if (errorCode !== 'PASSWORD_SAME') {
+                setStep(1); // Reset flow
+            }
         } finally {
             setIsSubmitting(false);
         }

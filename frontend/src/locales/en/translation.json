@@ -7,7 +7,21 @@
         "delete": "Delete",
         "download": "Download",
         "date": "Date",
-        "actions": "Actions"
+        "actions": "Actions",
+        "days": {
+            "Sun": "Sun",
+            "Mon": "Mon",
+            "Tue": "Tue",
+            "Wed": "Wed",
+            "Thu": "Thu",
+            "Fri": "Fri",
+            "Sat": "Sat"
+        }
+    },
+    "report": {
+        "chooseLanguage": "Choose Report Language",
+        "english": "English",
+        "hindi": "Hindi"
     },
     "nav": {
         "newScan": "New Scan",
@@ -781,6 +795,7 @@
                 "codeInvalid": "Please enter the 6-digit code.",
                 "codeVerified": "Code verified! Please choose a new password.",
                 "codeError": "Invalid or expired code.",
+                "passwordSame": "New password cannot be the same as the old password.",
                 "passShort": "Password must be at least 6 characters.",
                 "resetSuccess": "Password reset successfully! You can now login.",
                 "resetError": "Failed to reset password."

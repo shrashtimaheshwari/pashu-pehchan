@@ -126,6 +126,9 @@ const Dashboard = () => {
 
             <main className="flex-1 p-6 md:p-10 max-h-screen overflow-y-auto">
                 {/* Header Section */}
+                <header className="mb-8">
+                    <h1 className="text-3xl font-black text-text-main tracking-tight">Welcome, {user?.name || 'Field Worker'}</h1>
+                </header>
 
                 <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     {/* Left Column: Upload Section */}

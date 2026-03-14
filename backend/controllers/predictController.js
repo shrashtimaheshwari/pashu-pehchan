@@ -1,28 +1,6 @@
 const Prediction = require('../models/Prediction');
 
-// Generic helper to simulate ML Service for the hackathon/demo
-const mockMLService = () => {
-    const breeds = ['Gir', 'Sahiwal', 'Red Sindhi', 'Tharparkar', 'Murrah', 'Jafarabadi'];
-    const topBreed = breeds[Math.floor(Math.random() * breeds.length)];
-    const confScore = Math.random() * (99.9 - 65.0) + 65.0; // Random between 65% and 99.9%
-    const blurWarn = Math.random() > 0.8; // 20% chance of blur warning
-
-    // Generate mock probabilities matching PRD data shape
-    const probabilities = [
-        { breed: topBreed, score: (confScore / 100).toFixed(2) },
-        { breed: breeds[(breeds.indexOf(topBreed) + 1) % breeds.length], score: ((100 - confScore) / 200).toFixed(2) },
-        { breed: breeds[(breeds.indexOf(topBreed) + 2) % breeds.length], score: ((100 - confScore) / 200).toFixed(2) }
-    ];
-
-    const infoCard = {
-        origin: 'Indian Subcontinent',
-        milk_yield: Math.floor(Math.random() * 2000 + 1500) + ' Liters/Lactation',
-        characteristics: 'High heat tolerance and resistance to tropical diseases.'
-    };
-
-    return { breed: topBreed, confidence: confScore, probabilities, blurWarning: blurWarn, info_card: infoCard };
-};
-
+// Generic helper to simulate ML Service for the hackathon/demo was removed.
 // @desc    Upload image and get prediction
 // @route   POST /api/predict
 // @access  Private
@@ -35,9 +13,32 @@ exports.createPrediction = async (req, res) => {
         // Cloudinary URL injected by multer-storage-cloudinary
         const imageUrl = req.file.path;
 
-        // Simulate calling the ML python container
-        // In production, you would do an axios.post('http://ml-service/predict', { image: imageUrl })
-        const mlResult = mockMLService();
+        // Call the ML python container
+        let mlResult;
+        try {
+            const mlResponse = await fetch(process.env.ML_SERVICE_URL || 'http://127.0.0.1:8000/predict_url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_url: imageUrl })
+            });
+
+            if (!mlResponse.ok) {
+                const errText = await mlResponse.text();
+                throw new Error(`ML Service Error: ${mlResponse.status} - ${errText}`);
+            }
+
+            mlResult = await mlResponse.json();
+            
+            if (mlResult.error) {
+                 if (mlResult.error === 'Not a cow or buffalo') {
+                     return res.status(400).json({ success: false, message: 'Please upload an image of a Cow or Buffalo.' });
+                 }
+                 throw new Error(`ML Python Service Error: ${mlResult.error}`);
+            }
+        } catch (mlError) {
+            console.error('Failed to get prediction from ML service:', mlError);
+            return res.status(503).json({ success: false, message: 'ML Service is currently unavailable. Please try again later.', error: mlError.message });
+        }
 
         // Store in DB mapping to PRD spec
         const prediction = await Prediction.create({
@@ -79,6 +80,7 @@ exports.getPredictions = async (req, res) => {
             img_url: p.imageUrl,
             breed: p.breed,
             confidence: p.confidence,
+            probabilities: p.probabilities,
             date: p.date,
             blurWarning: p.blurWarning
         }));
