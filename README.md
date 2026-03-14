@@ -41,7 +41,7 @@ Pashu Pehchan is a web application designed for government field workers to iden
 
 * **Frontend**: React.js, Vite, Tailwind CSS, Recharts, Lucide React, Axios
 * **Backend**: Node.js, Express.js
-* **Machine Learning**: YOLOv8, EfficientNetB0, TensorFlow, Keras, Python Libraries, FastAPI or Flask
+* **Machine Learning**: YOLOv8, EfficientNetB3, TensorFlow, Keras, Python Libraries, FastAPI
 * **Database**: MongoDB
 * **Authentication**: JSON Web Tokens (JWT), bcrypt
 * **File Uploads**: Multer, Cloudinary
