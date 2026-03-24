@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const sendEmail = require('../utils/sendEmail');
+const { OAuth2Client } = require('google-auth-library');
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'PLACEHOLDER_GOOGLE_CLIENT_ID');
 
 // Generate JWT
 const generateToken = (id) => {
@@ -216,5 +219,73 @@ exports.resetPassword = async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
+    }
+};
+
+// @desc    Authenticate with Google
+// @route   POST /api/auth/google
+// @access  Public
+exports.googleAuth = async (req, res) => {
+    try {
+        const { idToken } = req.body;
+
+        // Verify the ID token from Google
+        const ticket = await client.verifyIdToken({
+            idToken,
+            audience: process.env.GOOGLE_CLIENT_ID || 'PLACEHOLDER_GOOGLE_CLIENT_ID',
+        });
+
+        const payload = ticket.getPayload();
+        const { sub: googleId, email, name } = payload;
+
+        // Check if user already exists
+        let user = await User.findOne({ email });
+
+        if (user) {
+            // User exists, just log them in (and update googleId if not present)
+            if (!user.googleId) {
+                user.googleId = googleId;
+                if (!user.authProvider) user.authProvider = 'local'; // default if missing
+                await user.save({ validateBeforeSave: false });
+            }
+
+            return res.json({
+                success: true,
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role
+                },
+                token: generateToken(user._id),
+            });
+        }
+
+        // Output generating a random dummy password simply to fulfill any potential edgecase requirement, though disabled in Model.
+        const randomPassword = crypto.randomBytes(16).toString('hex');
+
+        // Create new user
+        user = await User.create({
+            name,
+            email,
+            password: randomPassword,
+            authProvider: 'google',
+            googleId,
+        });
+
+        res.status(201).json({
+            success: true,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            },
+            token: generateToken(user._id),
+        });
+
+    } catch (err) {
+        console.error("Google Auth Error: ", err);
+        res.status(401).json({ success: false, message: 'Google authentication failed' });
     }
 };

@@ -60,13 +60,19 @@ const AppContent = () => {
   );
 };
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 function App() {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'PLACEHOLDER_GOOGLE_CLIENT_ID';
+  
   return (
-    <UIProvider>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
-    </UIProvider>
+    <GoogleOAuthProvider clientId={clientId}>
+      <UIProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </UIProvider>
+    </GoogleOAuthProvider>
   );
 }
 
