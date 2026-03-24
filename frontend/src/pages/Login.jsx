@@ -4,6 +4,7 @@ import { ShieldCheck, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
+import { GoogleLogin } from '@react-oauth/google';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import logo from '../assets/logo.png';
 
@@ -15,7 +16,7 @@ const Login = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { login } = useAuth();
+    const { login, loginWithGoogle } = useAuth();
     const { addToast } = useUI();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -177,6 +178,37 @@ const Login = () => {
                             )}
                         </button>
                     </form>
+
+                    <div className="mt-8 flex items-center justify-center space-x-4">
+                        <div className="h-px bg-border flex-1"></div>
+                        <span className="text-text-muted font-bold text-sm uppercase tracking-wider">{t('auth.login.orContinueWith', 'Or')}</span>
+                        <div className="h-px bg-border flex-1"></div>
+                    </div>
+
+                    <div className="mt-8 flex justify-center">
+                        <GoogleLogin
+                            onSuccess={async (credentialResponse) => {
+                                setIsSubmitting(true);
+                                try {
+                                    await loginWithGoogle(credentialResponse.credential);
+                                    addToast('Successfully logged in with Google!', 'success');
+                                    navigate('/dashboard');
+                                } catch (err) {
+                                    addToast(err.response?.data?.message || 'Google Login failed. Try again.', 'error');
+                                } finally {
+                                    setIsSubmitting(false);
+                                }
+                            }}
+                            onError={() => {
+                                addToast('Google Login Failed', 'error');
+                            }}
+                            useOneTap
+                            theme="outline"
+                            size="large"
+                            text="continue_with"
+                            width="100%"
+                        />
+                    </div>
 
                     <div className="mt-12 text-center border-t border-border pt-8">
                         <p className="text-text-muted font-medium">

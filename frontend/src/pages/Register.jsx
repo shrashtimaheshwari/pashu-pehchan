@@ -4,6 +4,7 @@ import { ShieldCheck, ArrowLeft, Eye, EyeOff, CheckCircle2, Circle } from 'lucid
 import { useAuth } from '../context/AuthContext';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
+import { GoogleLogin } from '@react-oauth/google';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import logo from '../assets/logo.png';
 
@@ -15,7 +16,7 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { register } = useAuth();
+    const { register, loginWithGoogle } = useAuth();
     const { addToast } = useUI();
     const navigate = useNavigate();
     const location = useLocation();
@@ -42,10 +43,10 @@ const Register = () => {
         const newErrors = {};
         if (!name) newErrors.name = true;
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) newErrors.email = true;
-        
+
         const isPasswordValid = passwordCriteria.every(criterion => criterion.regex.test(password));
         if (!password || !isPasswordValid) newErrors.password = true;
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -178,7 +179,7 @@ const Register = () => {
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
                             </div>
-                            
+
                             {/* Interactive Password Checklist */}
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 p-4 bg-slate-50 rounded-xl border border-border">
                                 {passwordCriteria.map(criterion => {
@@ -235,6 +236,37 @@ const Register = () => {
                             )}
                         </button>
                     </form>
+
+                    <div className="mt-8 flex items-center justify-center space-x-4">
+                        <div className="h-px bg-border flex-1"></div>
+                        <span className="text-text-muted font-bold text-sm uppercase tracking-wider">{t('auth.register.orSignUpWith', 'Or sign up with')}</span>
+                        <div className="h-px bg-border flex-1"></div>
+                    </div>
+
+                    <div className="mt-8 flex justify-center">
+                        <GoogleLogin
+                            onSuccess={async (credentialResponse) => {
+                                setIsSubmitting(true);
+                                try {
+                                    await loginWithGoogle(credentialResponse.credential);
+                                    addToast('Successfully signed up with Google!', 'success');
+                                    navigate('/dashboard');
+                                } catch (err) {
+                                    addToast(err.response?.data?.message || 'Google Signup failed. Try again.', 'error');
+                                } finally {
+                                    setIsSubmitting(false);
+                                }
+                            }}
+                            onError={() => {
+                                addToast('Google Signup Failed', 'error');
+                            }}
+                            useOneTap
+                            theme="outline"
+                            size="large"
+                            text="signup_with"
+                            width="100%"
+                        />
+                    </div>
 
                     <div className="mt-10 text-center border-t border-border pt-8">
                         <p className="text-text-muted font-medium">
