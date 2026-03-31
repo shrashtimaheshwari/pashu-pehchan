@@ -3,6 +3,6 @@ uvicorn[standard]
 pydantic
 tensorflow
 numpy
-opencv-python
+opencv-python-headless
 ultralytics
 python-multipart
