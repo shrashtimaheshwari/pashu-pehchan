@@ -1,21 +1,46 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, BackgroundTasks, Response, status
 from pydantic import BaseModel
 import urllib.request
-import tensorflow as tf
 import numpy as np
 import cv2
-from ultralytics import YOLO
-from tensorflow.keras.applications.efficientnet import preprocess_input
+import threading
 
 app = FastAPI()
 
 class ImageURLRequest(BaseModel):
     image_url: str
 
+from typing import Any
 
-# Load models
-model = tf.keras.models.load_model("cattle_classifier.keras")
-yolo = YOLO("yolov8n.pt")
+# Global variables for models
+model: Any = None
+yolo: Any = None
+preprocess_input: Any = None
+models_loaded = False
+
+def load_models_in_bg():
+    global model, yolo, preprocess_input, models_loaded
+    try:
+        import tensorflow as tf
+        from ultralytics import YOLO
+        from tensorflow.keras.applications.efficientnet import preprocess_input as tf_preprocess
+        
+        # Load models
+        print("Loading models in background...")
+        model = tf.keras.models.load_model("cattle_classifier.keras")
+        yolo = YOLO("yolov8n.pt")
+        preprocess_input = tf_preprocess
+        models_loaded = True
+        print("Models loaded successfully!")
+    except Exception as e:
+        print(f"Error loading models: {e}")
+
+@app.on_event("startup")
+async def startup_event():
+    # Start loading models in a background thread so uvicorn binds to port immediately
+    thread = threading.Thread(target=load_models_in_bg)
+    thread.daemon = True
+    thread.start()
 
 IMG_SIZE = 300
 
@@ -38,7 +63,10 @@ else:
     ]
 
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+async def predict(response: Response, file: UploadFile = File(...)):
+    if not models_loaded:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return {"error": "Models are still loading. Please try again in a few minutes."}
 
     contents = await file.read()
 
@@ -111,7 +139,11 @@ async def predict(file: UploadFile = File(...)):
 
 
 @app.post("/predict_url")
-async def predict_url(req: ImageURLRequest):
+async def predict_url(req: ImageURLRequest, response: Response):
+    if not models_loaded:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return {"error": "Models are still loading. Please try again in a few minutes."}
+        
     try:
         req_obj = urllib.request.Request(req.image_url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req_obj) as resp:
