@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, ArrowLeft, Eye, EyeOff, Loader2, CheckCircle2, Circle } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, Eye, EyeOff, Loader2, CheckCircle2, Circle, Info } from 'lucide-react';
 import { useUI } from '../context/UIContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
@@ -156,6 +156,12 @@ const ForgotPassword = () => {
                             <>
                                 <h2 className="text-4xl font-black text-text-main mb-3">{t('auth.forgot.step2Title')}</h2>
                                 <p className="text-text-muted font-medium">{t('auth.forgot.desc2')} <strong>{email}</strong>.</p>
+                                <div className="mt-4 flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                                    <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                                    <p className="text-sm text-amber-800 font-medium">
+                                        Didn't receive the email? Check your <strong>Spam/Junk</strong> folder. It may take up to a few minutes to arrive.
+                                    </p>
+                                </div>
                             </>
                         )}
                         {step === 3 && (

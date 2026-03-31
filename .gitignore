@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Dependencies
+node_modules/
+
 # Environment files
 .env
 .env.local
@@ -9,8 +12,6 @@ node_modules/
 # Dataset & model files
 backend_model/dataset_final_pp_cropped/
 dataset_final_pp_cropped/
-backend_model/cattle_classifier.keras
-backend_model/yolov8n.pt
 
 # Python
 __pycache__/
